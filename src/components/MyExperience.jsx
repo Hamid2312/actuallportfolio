@@ -61,63 +61,59 @@ const MyExperience = () => {
 
   return (
     <div
-      id="my-experience-section"
-      className="bg-black min-h-screen py-16 flex flex-col justify-center items-center"
-      ref={ref}
-    >
-      <div className="container mx-auto px-6 sm:px-8">
-        <div className="text-center mb-12">
-          <motion.h1
-            className="text-[#00FBF4] text-4xl sm:text-5xl font-bold mb-4 hover:text-white hover:shadow-lg hover:shadow-[#00FBF4] transition duration-300"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -50 }}
-            transition={{ duration: 1 }}
-          >
-            My Experience
-          </motion.h1>
-          <motion.p
-            className="text-lg sm:text-xl text-white font-light mb-8"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            A brief look at my professional journey and the impactful projects I’ve worked on.
-          </motion.p>
-        </div>
-
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
+    id="my-experience-section"
+    className="bg-black min-h-screen py-10 flex flex-col justify-center items-center"
+    ref={ref}
+  >
+    <div className="container mx-auto px-4 sm:px-8">
+      <div className="text-center mb-8">
+        <motion.h1
+          className="text-[#00FBF4] text-3xl sm:text-5xl font-bold mb-4 hover:text-white"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : -30 }}
+          transition={{ duration: 1 }}
         >
-          {experiences.map((experience, index) => (
-            <motion.div
-              key={index}
-              className={`bg-[#0f0f0f] p-6 rounded-xl shadow-lg border border-[#00FBF4] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_30px_rgba(0,251,244,0.6)] ${
-                index === 3 ? "mx-auto" : ""
-              }`}
-              variants={itemVariants}
-            >
-              <motion.h3
-                className="text-2xl text-[#00FBF4] font-bold mb-2"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                {experience.title}
-              </motion.h3>
-              <p className="text-xl text-white font-semibold mb-2">
-                {experience.company}
-              </p>
-              <p className="text-md text-gray-300 mb-4">{experience.duration}</p>
-              <p className="text-md text-white font-light">
-                {experience.description}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+          My Experience
+        </motion.h1>
+        <motion.p
+          className="text-lg sm:text-xl text-white font-light"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          A brief look at my professional journey and impactful projects.
+        </motion.p>
       </div>
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? "show" : "hidden"}
+      >
+        {experiences.map((experience, index) => (
+          <motion.div
+            key={index}
+            className="bg-[#0f0f0f] p-4 sm:p-6 rounded-xl shadow-lg border border-[#00FBF4] hover:scale-105"
+            variants={itemVariants}
+          >
+            <motion.h3 className="text-xl sm:text-2xl text-[#00FBF4] font-bold mb-2">
+              {experience.title}
+            </motion.h3>
+            <p className="text-base sm:text-lg text-white font-semibold mb-1">
+              {experience.company}
+            </p>
+            <p className="text-sm sm:text-md text-gray-300 mb-4">
+              {experience.duration}
+            </p>
+            <p className="text-sm sm:text-md text-white font-light">
+              {experience.description}
+            </p>
+          </motion.div>
+        ))}
+      </motion.div>
     </div>
+  </div>
+  
   );
 };
 
