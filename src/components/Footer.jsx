@@ -1,7 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <footer className="bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -17,7 +24,7 @@ const Footer = () => {
           <h3 className="text-2xl font-bold text-[#00FBF4] mb-4">Quick Links</h3>
           <ul>
             <li><Link to="my-experience" className="text-lg hover:text-[#00FBF4]">My Experience</Link></li>
-            <li><Link to="contact" className="text-lg hover:text-[#00FBF4]">Get Location</Link></li>
+            <li><Link to="contact" className="text-lg hover:text-[#00FBF4]">Get in touch</Link></li>
             <li><Link to="skills" className="text-lg hover:text-[#00FBF4]">My Skills</Link></li>
           </ul>
         </div>
@@ -43,10 +50,19 @@ const Footer = () => {
             <i className="fab fa-linkedin"></i>
           </a>
         </div>
-        <p className="text-lg text-center text-[#00FBF4]">© 2025 Hafiz Hamid Ali. All rights reserved.</p>
+        <p className="text-lg text-center text-[#00FBF4] mb-6">© 2025 Hafiz Hamid Ali. All rights reserved.</p>
+        {/* Scroll to Top Button */}
+        <div className="flex justify-center">
+          <button
+            onClick={scrollToTop}
+            className="bg-[#00FBF4] text-black font-bold py-2 px-6 rounded-md hover:bg-white hover:text-black transition-all duration-300"
+          >
+            Go to top
+          </button>
+        </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

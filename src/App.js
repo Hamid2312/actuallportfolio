@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import "aos/dist/aos.css";
 import AOS from "aos";
+import ScrollToTop from "./components/ScrollToTop"; // Import the ScrollToTop component
 
 // Layout component to wrap the navbar, content, and footer
 const Layout = ({ children }) => {
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop /> {/* Include ScrollToTop here */}
       <Routes>
         <Route
           path="/"

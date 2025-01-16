@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import  {motion}  from 'framer-motion';
-import  {InView}  from 'react-intersection-observer';
+import { motion } from 'framer-motion';
+import { InView } from 'react-intersection-observer';
 import facebookImage from '../assets/facebook.png';
 import githubImage from '../assets/github.png';
 import linkedinImage from '../assets/linkedin.png';
 import emailImage from '../assets/email.png';
 import whatsappImage from '../assets/whatsapp.png';
+import instaImage from '../assets/instagram.png';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const Contact = () => {
               animate={inView ? 'show' : 'hidden'}
             >
               <motion.h1
-                className="text-[#00FBF4] text-5xl font-bold mb-4 tracking-wider  hover:text-white hover:shadow-lg hover:shadow-[#00FBF4] transition duration-300"
+                className="text-[#00FBF4] text-5xl font-bold mb-4 tracking-wider hover:text-white hover:shadow-lg hover:shadow-[#00FBF4] transition duration-300"
                 initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}
@@ -70,6 +71,67 @@ const Contact = () => {
           )}
         </InView>
 
+        {/* Contact Form Section */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-[#00000080] p-6 rounded-lg shadow-lg max-w-3xl mx-auto mb-12"
+        >
+          <h2 className="text-3xl text-[#00FBF4] font-bold mb-6 text-center">
+            Send Us a Message
+          </h2>
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-white text-lg font-medium mb-2">
+              Your Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#00FBF4] rounded-lg bg-[#000000] text-white focus:outline-none focus:border-[#00FBF4]"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-white text-lg font-medium mb-2">
+              Your Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#00FBF4] rounded-lg bg-[#000000] text-white focus:outline-none focus:border-[#00FBF4]"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="message" className="block text-white text-lg font-medium mb-2">
+              Your Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full p-3 border border-[#00FBF4] rounded-lg bg-[#000000] text-white focus:outline-none focus:border-[#00FBF4]"
+              placeholder="Type your message here"
+              rows="4"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-[#00FBF4] text-black px-6 py-3 rounded-lg font-bold hover:bg-white transition duration-300 w-full"
+          >
+            Submit
+          </button>
+        </form>
+
         {/* Contact Options Section */}
         <InView triggerOnce>
           {({ inView, ref }) => (
@@ -81,112 +143,60 @@ const Contact = () => {
               animate={inView ? 'show' : 'hidden'}
             >
               {/* Facebook */}
-              <motion.div
-                className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
-                variants={fadeInUp}
-              >
-                <a
-                  href="https://www.facebook.com/share/15qYWfs8hM/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={facebookImage}
-                    alt="Facebook"
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
-                  />
-                  <h1 className="text-white font-bold">Facebook Profile</h1>
-                </a>
-              </motion.div>
-
-              {/* GitHub */}
-              <motion.div
-                className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
-                variants={fadeInUp}
-              >
-                <a
-                  href="https://github.com/Hamid2312"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={githubImage}
-                    alt="GitHub"
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
-                  />
-                  <h1 className="text-white font-bold">GitHub Profile</h1>
-                </a>
-              </motion.div>
-
-              {/* LinkedIn */}
-              <motion.div
-                className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
-                variants={fadeInUp}
-              >
-                <a
-                  href="https://www.linkedin.com/in/hafiz-hamid-b40795336"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={linkedinImage}
-                    alt="LinkedIn"
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
-                  />
-                  <h1 className="text-white font-bold">LinkedIn Profile</h1>
-                </a>
-              </motion.div>
-
-              {/* Email */}
-              <motion.div
-                className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
-                variants={fadeInUp}
-              >
-                <a
-                  href="mailto:hafizalig312@gmail.com"
-                  className="block"
-                >
-                  <img
-                    src={emailImage}
-                    alt="Email"
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
-                  />
-                  <h1 className="text-white font-bold">Send an Email</h1>
-                </a>
-              </motion.div>
-
-              {/* WhatsApp */}
-              <motion.div
-                className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
-                variants={fadeInUp}
-              >
-                <a
-                  href="https://wa.me/+923249462896"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={whatsappImage}
-                    alt="WhatsApp"
-                    className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
-                  />
-                  <h1 className="text-white font-bold">WhatsApp</h1>
-                </a>
-              </motion.div>
+              <ContactCard
+                href="https://www.facebook.com/share/15qYWfs8hM/"
+                image={facebookImage}
+                alt="Facebook"
+                text="Facebook Profile"
+              />
+                  {/* GitHub */}
+                  <ContactCard
+                href="https://github.com/Hamid2312"
+                image={githubImage}
+                alt="GitHub"
+                text="GitHub Profile"
+              />
+                {/* LinkedIn */}
+                <ContactCard
+                href="https://www.linkedin.com/in/hafiz-hamid-b40795336"
+                image={linkedinImage}
+                alt="LinkedIn"
+                text="LinkedIn Profile"
+              />
+                {/* Email */}
+                <ContactCard
+                href="mailto:hafizalig312@gmail.com"
+                image={emailImage}
+                alt="Email"
+                text="Send an Email"
+              />
+               {/* WhatsApp */}
+               <ContactCard
+                href="https://wa.me/+923249462896"
+                image={whatsappImage}
+                alt="WhatsApp"
+                text="WhatsApp"
+              />
+                {/* Instagram */}
+                <ContactCard
+                href="https://www.instagram.com/hamid__ali13"
+                image={instaImage}
+                alt="Instagram"
+                text="Instagram"
+              />
+              {/* Other Cards */}
             </motion.div>
           )}
         </InView>
 
         {/* Map Section */}
         <div className="mb-12">
-          <h2 className="text-3xl text-[#00FBF4] font-bold text-center mb-6  hover:text-white hover:shadow-lg hover:shadow-[#00FBF4] transition duration-300">Location</h2>
+          <h2 className="text-3xl text-[#00FBF4] font-bold text-center mb-6 hover:text-white hover:shadow-lg hover:shadow-[#00FBF4] transition duration-300">
+            Location
+          </h2>
           <iframe
             title="Chungi Amer Sidhu Lahore"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3524.763579324849!2d74.32846941451718!3d31.582050981155537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39190977e55e171b%3A0x0fc2b8a5cd1e8d21!2sChungi%20Amer%20Sidhu%2C%20Lahore%2C%20Punjab%20Pakistan!5e0!3m2!1sen!2sus!4v1681505753943!5m2!1sen!2sus"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13699.017635739825!2d74.30802083228114!3d31.54083235020181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391907405303089f%3A0x809e59a3e7899ee2!2sChungi%20Amar%20Sidhu%2C%20Lahore%2C%20Punjab!5e0!3m2!1sen!2s!4v1691778740163!5m2!1sen!2s"
             width="100%"
             height="400"
             style={{ border: '0', borderRadius: '10px' }}
@@ -197,5 +207,20 @@ const Contact = () => {
     </div>
   );
 };
+
+const ContactCard = ({ href, image, alt, text }) => (
+  <motion.div
+    className="bg-[#00000080] p-6 rounded-lg shadow-lg hover:shadow-2xl hover:border-4 border-[#00FBF4] text-center transition-all duration-300"
+  >
+    <a href={href} target="_blank" rel="noopener noreferrer" className="block">
+      <img
+        src={image}
+        alt={alt}
+        className="w-16 h-16 mx-auto mb-4 rounded-full border-4 border-[#00FBF4]"
+      />
+      <h1 className="text-white font-bold">{text}</h1>
+    </a>
+  </motion.div>
+);
 
 export default Contact;

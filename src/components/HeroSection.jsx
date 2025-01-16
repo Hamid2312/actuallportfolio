@@ -64,7 +64,7 @@ const HeroSection = () => {
             >
               Hi, I'm{" "}
               <span
-                className="text-[#00FBF4] font-semibold text-4xl sm:text-5xl md:text-6xl inline-block mt-6 animate-glow"
+                className="text-[#00FBF4] font-light text-4xl sm:text-5xl md:text-6xl inline-block mt-6 animate-glow"
                 style={{
                   animation: "glow 2s infinite",
                   textShadow: "0 0 5px #00FBF4, 0 0 10px #00FBF4, 0 0 20px #00FBF4",

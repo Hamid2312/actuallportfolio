@@ -7,17 +7,11 @@ const MyExperience = () => {
     {
       title: "Learning",
       company: "Zaff institue",
-      duration: "December 2023 to February",
+      duration: "December 2023 - February 2024",
       description:
         "I learned web development from this institue and recieved certification from there. I learned lot of things and explor many things as a good leaner and start intership there.",
     },
-    {
-      title: "Frontend Developer",
-      company: "Famefing Technologies",
-      duration: "Oct-2024 to present",
-      description:
-        "Leading the development of modern web applications with React and TypeScript, focusing on performance optimization and user-friendly interfaces.",
-    },
+ 
     {
       title: "Frontend Developer",
       company: "Zaff Institute in Arfa Tower",
@@ -31,6 +25,13 @@ const MyExperience = () => {
       duration: "July 2024 - September 2024",
       description:
         "Worked as a freelancer, building custom websites for clients using React, HTML, CSS, and JavaScript. Focused on providing high-quality, user-friendly interfaces for small businesses.",
+    },
+    {
+      title: "Frontend Developer",
+      company: "Famefing Technologies",
+      duration: "October 2024 - present",
+      description:
+        "Leading the development of modern web applications with React and TypeScript, focusing on performance optimization and user-friendly interfaces.",
     },
   ];
 
