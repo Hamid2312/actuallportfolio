@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Famefing from "../assets/famefing.jpg";
 import pia from "../assets/pia.jpg";
+import newProjectImage from "../assets/newProject.jpg"; // Replace with the actual image path
 
 const Projects = () => {
   const projects = [
@@ -18,6 +19,13 @@ const Projects = () => {
         "A professional website I created as a dummy project. Each component has been crafted using professional methods.",
       link: "https://mypia-hamid2312s-projects.vercel.app/",
       image: pia,
+    },
+    {
+      title: "Typing speed tester", // Replace with the actual title
+      description:
+        "This is a new project I recently completed. I maked this Typing tester app by using maximum fuctonality of react js as frontend.",
+      link: "https://typing-tester-nu.vercel.app/", // Replace with the actual link
+      image: newProjectImage,
     },
   ];
 
@@ -68,7 +76,7 @@ const Projects = () => {
 
         {/* Projects Cards */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
           variants={containerVariants}
           initial="hidden"
           animate="show"
@@ -106,7 +114,9 @@ const Projects = () => {
                   {project.title}
                 </a>
               </motion.h3>
-              <p className="text-white font-light mb-4">{project.description}</p>
+              <p className="text-white font-light mb-4">
+                {project.description}
+              </p>
               <a
                 href={project.link}
                 target="_blank"
