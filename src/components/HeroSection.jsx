@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import  {motion}  from "framer-motion";
 
 import backgroundPhoto from "../assets/portfolio6.jpg"; // Static import
-import cvFile from "../assets/Hafiz_Hamid_CV.pdf"; // Static import
+import cvFile from "../assets/updated_cv.pdf"; // Static import
 import "./HeroSection.css";
 
 const HeroSection = () => {

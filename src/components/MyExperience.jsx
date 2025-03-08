@@ -9,7 +9,7 @@ const MyExperience = () => {
       company: "Zaff institue",
       duration: "December 2023 - February 2024",
       description:
-        "I learned web development from this institue and recieved certification from there. I learned lot of things and explor many things as a good leaner and start intership there.",
+        "I learned web development from this institue and recieved certification from there. I learned lot of things and explor many things as a good leaner and start internship there.",
     },
  
     {
