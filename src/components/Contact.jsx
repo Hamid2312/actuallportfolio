@@ -6,7 +6,7 @@ import githubImage from '../assets/github.png';
 import linkedinImage from '../assets/linkedin.png';
 import emailImage from '../assets/email.png';
 import whatsappImage from '../assets/whatsapp.png';
-import instaImage from '../assets/instagram.png';
+import FiverrImage from '../assets/fiverr.png'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -177,12 +177,12 @@ const Contact = () => {
                 alt="WhatsApp"
                 text="WhatsApp"
               />
-                {/* Instagram */}
+                {/* fiverr*/}
                 <ContactCard
-                href="https://www.instagram.com/hamid__ali13"
-                image={instaImage}
-                alt="Instagram"
-                text="Instagram"
+                href="https://www.fiverr.com/devhafizhamid"
+                image={FiverrImage}
+                alt="Fiverr"
+                text="Fiverr"
               />
               {/* Other Cards */}
             </motion.div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import  {motion}  from "framer-motion";
+import Particles from "react-tsparticles";
+import { motion } from "framer-motion";
 
 import backgroundPhoto from "../assets/portfolio6.jpg"; // Static import
 import cvFile from "../assets/updated_cv.pdf"; // Static import
@@ -26,7 +27,7 @@ const HeroSection = () => {
     <div
       className="relative"
       style={{
-        backgroundColor: "#E6E6FA",
+        backgroundColor: "#000000",
         height: "100vh",
         paddingTop: "60px",
       }}
@@ -82,20 +83,40 @@ const HeroSection = () => {
               {displayText}
             </motion.p>
             <div className="flex flex-col md:flex-row gap-4">
-            <motion.a
-  href={cvFile}
-  download="Hafiz_Hamid_CV.pdf"
-  className="bg-transparent border-2 border-[#00FBF4] text-[#00FBF4] font-bold text-lg leading-relaxed py-4 px-6 md:py-4 md:px-8 rounded-full shadow-lg hover:bg-transparent hover:shadow-xl hover:scale-110 transition-all duration-300 
-  sm:ml-16 mx-auto sm:mx-0"
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
-  Download CV
-</motion.a>
-
-
+              <motion.a
+                href={cvFile}
+                download="Hafiz_Hamid_CV.pdf"
+                className="bg-transparent border-2 border-[#00FBF4] text-[#00FBF4] font-bold text-lg leading-relaxed py-4 px-6 md:py-4 md:px-8 rounded-full shadow-lg hover:bg-transparent hover:shadow-xl hover:scale-110 transition-all duration-300 sm:ml-16 mx-auto sm:mx-0"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Download CV
+              </motion.a>
             </div>
           </motion.div>
+          <div className="hidden md:block md:w-2/5 relative h-full">
+            <div style={{ position: "absolute", top: 0, right: 0, width: "100%", height: "100%" }}>
+              <Particles
+                id="tsparticles"
+                options={{
+                  fullScreen: { enable: false },
+                  particles: {
+                    number: { value: 100 },
+                    color: { value: "#00FBF4" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.8 },
+                    size: { value: 4 },
+                    move: { enable: true, speed: 2, direction: "none", random: true },
+                  },
+                  interactivity: {
+                    events: { onHover: { enable: true, mode: "repulse" } },
+                    modes: { repulse: { distance: 100 } },
+                  },
+                  detectRetina: true,
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
