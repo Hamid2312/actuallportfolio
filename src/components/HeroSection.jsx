@@ -1,124 +1,502 @@
 import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { motion } from "framer-motion";
-
-import backgroundPhoto from "../assets/portfolio6.jpg"; // Static import
-import cvFile from "../assets/updated_cv.pdf"; // Static import
-import "./HeroSection.css";
+import profileImage from "../assets/profile2.jpg"; // Adjust the path based on the actual location
+import cv from "../assets/updated_cv.pdf"
 
 const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
-  const paragraph =
-    "I’m a dedicated Frontend Developer skilled in cutting-edge web technologies, including HTML, CSS, JavaScript, and React.js. I’m here to transform your ideas into reality with innovation and creative solutions.";
+  const [seconds, setSeconds] = useState(new Date().getSeconds());
+  const [hasImageLoaded, setHasImageLoaded] = useState(false);
 
+  // Typewriter effect for paragraph
   useEffect(() => {
     let currentIndex = 0;
     const typeWriter = () => {
       if (currentIndex < paragraph.length) {
         setDisplayText(paragraph.slice(0, currentIndex + 1));
         currentIndex++;
-        setTimeout(typeWriter, 10);
+        setTimeout(typeWriter, 40);
       }
     };
     typeWriter();
   }, []);
 
+  // Time-based animation update
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(new Date().getSeconds());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const paragraph =
+    "I’m a dedicated Frontend Developer skilled in cutting-edge web technologies, including HTML, CSS, JavaScript, and React.js. I’m here to transform your ideas into reality with innovation and creative solutions.";
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const headingVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const nameVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.3,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 1,
+        delay: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        delay: 0.9,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    show: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 1,
+        delay: 1.2,
+        ease: "easeOut",
+      },
+    },
+    hover: {
+      scale: 1.1,
+      boxShadow: "0 0 20px rgba(0, 251, 244, 0.7)",
+      transition: {
+        duration: 0.3,
+      },
+    },
+    pulse: {
+      scale: [1, 1.07, 1],
+      boxShadow: [
+        "0 0 0 rgba(0, 251, 244, 0)",
+        "0 0 20px rgba(0, 251, 244, 0.5)",
+        "0 0 0 rgba(0, 251, 244, 0)",
+      ],
+      transition: {
+        duration: 2.5,
+        ease: "easeInOut",
+        repeat: Infinity,
+      },
+    },
+  };
+
+  const rightOrbitVariants = {
+    animate: {
+      rotate: [0, 360],
+      opacity: [0.4, 1, 0.4],
+      transition: {
+        duration: 24,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    },
+  };
+
+  const leftOrbitVariants = {
+    animate: {
+      scale: [1, 1.15, 1],
+      opacity: [0.5, 1, 0.5],
+      transition: {
+        duration: 36,
+        ease: "easeInOut",
+        repeat: Infinity,
+      },
+    },
+  };
+
+  const haloParticleVariants = {
+    animate: {
+      rotate: [0, 360],
+      transition: {
+        duration: 18,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    },
+    hover: {
+      rotate: [0, 360],
+      transition: {
+        duration: 3,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    },
+  };
+
   return (
-    <div
-      className="relative"
-      style={{
-        backgroundColor: "#000000",
-        height: "100vh",
-        paddingTop: "60px",
-      }}
-    >
+    <div className="relative bg-gradient-to-br from-black mt-16 to-gray-900 min-h-screen">
+      <style>
+        {`
+          @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+          }
+          @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6), 0 0 30px rgba(167, 139, 250, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8), 0 0 50px rgba(167, 139, 250, 0.6); }
+          }
+          .animate-blink {
+            animation: blink 1s step-end infinite;
+          }
+          .gradient-text {
+            background: linear-gradient(to right, #00FBF4, #A78BFA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+          .gradient-border {
+            position: relative;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            border-radius: 9999px;
+            animation: glow 3s ease-in-out infinite;
+          }
+          .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -3px; bottom: -3px; left: -3px; right: -3px;
+            background: linear-gradient(to right, #00FBF4, #A78BFA);
+            z-index: -1;
+            border-radius: 9999px;
+          }
+        `}
+      </style>
+
       <div
-        className="flex justify-center items-center relative"
+        className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `url(${backgroundPhoto})`,
+          backgroundImage: `radial-gradient(circle, #1A1A1A 10%, black 100%)`,
           backgroundSize: "cover",
-          backgroundPosition: "top center",
-          height: "calc(100vh - 60px)",
-          width: "100%",
-          margin: 0,
+          backgroundPosition: "center",
         }}
       >
-        <div
-          className="absolute inset-0 bg-black bg-opacity-65"
-          style={{ zIndex: 1 }}
-        ></div>
-        <div
-          className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col md:flex-row items-center space-y-10 md:space-y-0 md:space-x-12 relative fadeIn"
-          style={{ zIndex: 2 }}
-        >
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30" />
+      </div>
+
+      <div className="absolute inset-0 z-5">
+        <Particles
+          id="star-particles"
+          options={{
+            fullScreen: { enable: false },
+            particles: {
+              number: { value: 30, density: { enable: true, value_area: 1200 } },
+              color: { value: ["#00FBF4", "#FFFFFF", "#A78BFA"] },
+              shape: { type: "star", polygon: { nb_sides: 5 } },
+              opacity: {
+                value: 0.6,
+                random: true,
+                anim: { enable: true, speed: 0.3, opacity_min: 0.2 },
+              },
+              size: {
+                value: 5,
+                random: { enable: true, minimumValue: 2 },
+                anim: { enable: true, speed: 0.5, size_min: 2 },
+              },
+              move: {
+                enable: true,
+                speed: 1.5,
+                direction: "none",
+                random: true,
+                out_mode: "out",
+              },
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onHover: { enable: true, mode: "bubble" },
+                onClick: { enable: false },
+              },
+              modes: {
+                bubble: { distance: 200, size: 7, duration: 2, opacity: 0.8 },
+              },
+            },
+            retina_detect: true,
+          }}
+        />
+      </div>
+
+      <motion.div
+        className="absolute top-1/3 right-8 lg:right-12 transform -translate-y-1/2 z-8 w-40 h-40 hidden lg:block"
+        animate={{ rotate: seconds * 15 }}
+        transition={{ duration: 1, ease: "linear" }}
+      >
+        <div className="relative w-full h-full">
+          <div
+            className="absolute top-1/2 left-1/2 w-5 h-5 bg-[#00FBF4] rounded-full transform -translate-x-1/2 -translate-y-1/2"
+            style={{ boxShadow: "0 0 20px rgba(0, 251, 244, 0.8), 0 0 40px rgba(0, 251, 244, 0.4)" }}
+          />
+          {[
+            { angle: 0, color: "#00FBF4" },
+            { angle: 72, color: "#FFFFFF" },
+            { angle: 144, color: "#A78BFA" },
+            { angle: 216, color: "#00FBF4" },
+            { angle: 288, color: "#FFFFFF" },
+          ].map(({ angle, color }, idx) => (
+            <motion.div
+              key={idx}
+              className="absolute w-2.5 h-2.5 rounded-full"
+              style={{
+                top: "50%",
+                left: "50%",
+                transformOrigin: "center",
+                x: 50 * Math.cos((angle * Math.PI) / 180),
+                y: 50 * Math.sin((angle * Math.PI) / 180),
+                background: color,
+                boxShadow: `0 0 10px ${color}, 0 0 20px ${color}80`,
+              }}
+              variants={rightOrbitVariants}
+              animate="animate"
+            />
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute top-2/3 left-8 lg:left-12 transform -translate-y-1/2 z-8 w-32 h-32 hidden lg:block"
+        animate={{ rotate: -seconds * 10 }}
+        transition={{ duration: 1, ease: "linear" }}
+      >
+        <div className="relative w-full h-full">
           <motion.div
-            className="text-center md:text-left md:w-2/5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            className="absolute top-1/2 left-1/2 w-5 h-5 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"
+            style={{ boxShadow: "0 0 20px rgba(255, 255, 255, 0.8)" }}
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
+          />
+          {[
+            { angle: 0, radius: 40, color: "#00FBF4", offset: 0.8 },
+            { angle: 60, radius: 35, color: "#A78BFA", offset: 1.2 },
+            { angle: 120, radius: 45, color: "#00FBF4", offset: 0.9 },
+            { angle: 180, radius: 40, color: "#A78BFA", offset: 1.1 },
+            { angle: 240, radius: 38, color: "#00FBF4", offset: 0.7 },
+            { angle: 300, radius: 42, color: "#A78BFA", offset: 1.0 },
+          ].map(({ angle, radius, color, offset }, idx) => (
+            <motion.div
+              key={idx}
+              className="absolute w-2 h-2 rounded-full"
+              style={{
+                top: "50%",
+                left: "50%",
+                transformOrigin: "center",
+                x: radius * offset * Math.cos((angle * Math.PI) / 180),
+                y: radius * offset * Math.sin((angle * Math.PI) / 180),
+                background: color,
+                boxShadow: `0 0 8px ${color}, 0 0 15px ${color}80`,
+              }}
+              variants={leftOrbitVariants}
+              animate="animate"
+            />
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="absolute inset-0 z-10">
+        <Particles
+          id="tsparticles"
+          options={{
+            fullScreen: { enable: false },
+            particles: {
+              number: { value: 50, density: { enable: true, value_area: 1000 } },
+              color: { value: ["#00FBF4", "#A78BFA"] },
+              shape: { type: ["circle", "triangle", "star"], polygon: { nb_sides: 5 } },
+              opacity: {
+                value: 0.4,
+                random: true,
+                anim: { enable: true, speed: 1, opacity_min: 0.15 },
+              },
+              size: {
+                value: 3,
+                random: true,
+                anim: { enable: true, speed: 2, size_min: 1 },
+              },
+              line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#A78BFA",
+                opacity: 0.2,
+                width: 1,
+              },
+              move: {
+                enable: true,
+                speed: 3,
+                direction: "none",
+                random: true,
+                out_mode: "out",
+              },
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onHover: { enable: true, mode: ["grab", "bubble"] },
+                onClick: { enable: true, mode: "push" },
+              },
+              modes: {
+                grab: { distance: 200, line_linked: { opacity: 0.5 } },
+                bubble: { distance: 250, size: 5, duration: 2, opacity: 0.7 },
+                push: { particles_nb: 2 },
+              },
+            },
+            retina_detect: true,
+          }}
+        />
+      </div>
+
+      <motion.div
+        className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-4rem)] flex items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-12"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        <div className="text-center max-w-2xl w-full scale-95 sm:scale-100">
+          <motion.h1
+            className="text-white font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-2"
+            variants={headingVariants}
+            style={{ textShadow: "0 0 10px rgba(0, 251, 244, 0.5)" }}
           >
-            <motion.h1
-              className="text-white font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-wide text-shadow-md mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
+            Hi, I'm
+          </motion.h1>
+          <motion.span
+            className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl block mb-4 gradient-text"
+            variants={nameVariants}
+            style={{ textShadow: "0 0 20px rgba(0, 251, 244, 0.6)" }}
+            whileHover={{ scale: 1.05, textShadow: "0 0 25px rgba(0, 251, 244, 0.8)" }}
+          >
+            Hafiz Hamid Ali
+          </motion.span>
+          <motion.div
+            className="relative w-36 h-36 sm:w-48 sm:h-48 lg:w-64 lg:h-64 mx-auto mt-4 mb-6"
+            variants={imageVariants}
+            initial="hidden"
+            animate={{
+              rotate: [0, 5, 0, -5, 0],
+              opacity: 1,
+            }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 0 30px rgba(0, 251, 244, 0.8), 0 0 60px rgba(167, 139, 250, 0.6)",
+            }}
+            transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
+          >
+            <img
+              src={profileImage}
+              alt="Hafiz Hamid Ali Portrait"
+              className="rounded-full gradient-border object-cover w-full h-full z-20"
+              onLoad={() => setHasImageLoaded(true)}
+              onError={(e) => {
+                if (!hasImageLoaded) {
+                  console.error("Image failed to load:", e);
+                  e.target.src = "https://via.placeholder.com/300";
+                }
+              }}
+            />
+            <motion.div
+              className="absolute inset-0 z-10"
+              animate="animate"
+              variants={haloParticleVariants}
+              whileHover="hover"
             >
-              Hi, I'm{" "}
-              <span
-                className="text-[#00FBF4] font-light text-4xl sm:text-5xl md:text-6xl inline-block mt-6 animate-glow"
-                style={{
-                  animation: "glow 2s infinite",
-                  textShadow: "0 0 5px #00FBF4, 0 0 10px #00FBF4, 0 0 20px #00FBF4",
-                }}
-              >
-                Hafiz Hamid Ali
-              </span>
-            </motion.h1>
-            <motion.p
-              className="text-white font-serif text-lg sm:text-xl md:text-xl mt-4 font-medium leading-relaxed mb-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.6 }}
-            >
-              {displayText}
-            </motion.p>
-            <div className="flex flex-col md:flex-row gap-4">
-              <motion.a
-                href={cvFile}
-                download="Hafiz_Hamid_CV.pdf"
-                className="bg-transparent border-2 border-[#00FBF4] text-[#00FBF4] font-bold text-lg leading-relaxed py-4 px-6 md:py-4 md:px-8 rounded-full shadow-lg hover:bg-transparent hover:shadow-xl hover:scale-110 transition-all duration-300 sm:ml-16 mx-auto sm:mx-0"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Download CV
-              </motion.a>
-            </div>
+              {[
+                { angle: 0, color: "#00FBF4" },
+                { angle: 45, color: "#A78BFA" },
+                { angle: 90, color: "#FFFFFF" },
+                { angle: 135, color: "#00FBF4" },
+                { angle: 180, color: "#A78BFA" },
+                { angle: 225, color: "#FFFFFF" },
+                { angle: 270, color: "#00FBF4" },
+                { angle: 315, color: "#A78BFA" },
+              ].map(({ angle, color }, idx) => (
+                <motion.div
+                  key={idx}
+                  className="absolute w-1.5 h-1.5 rounded-full"
+                  style={{
+                    top: "50%",
+                    left: "50%",
+                    transformOrigin: "center",
+                    x: 25 * Math.cos((angle * Math.PI) / 180),
+                    y: 25 * Math.sin((angle * Math.PI) / 180),
+                    background: color,
+                    boxShadow: `0 0 5px ${color}, 0 0 10px ${color}80`,
+                  }}
+                  animate={{ opacity: [0.3, 1, 0.3] }}
+                  transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, delay: idx * 0.2 }}
+                />
+              ))}
+            </motion.div>
           </motion.div>
-          <div className="hidden md:block md:w-2/5 relative h-full">
-            <div style={{ position: "absolute", top: 0, right: 0, width: "100%", height: "100%" }}>
-              <Particles
-                id="tsparticles"
-                options={{
-                  fullScreen: { enable: false },
-                  particles: {
-                    number: { value: 100 },
-                    color: { value: "#00FBF4" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.8 },
-                    size: { value: 4 },
-                    move: { enable: true, speed: 2, direction: "none", random: true },
-                  },
-                  interactivity: {
-                    events: { onHover: { enable: true, mode: "repulse" } },
-                    modes: { repulse: { distance: 100 } },
-                  },
-                  detectRetina: true,
-                }}
-              />
-            </div>
+          <motion.p
+            className="text-white font-light text-sm sm:text-base md:text-lg lg:text-xl mb-6 mx-auto max-w-xl relative"
+            variants={textVariants}
+            style={{ textShadow: "0 0 3px rgba(0, 0, 0, 0.4)" }}
+          >
+            {displayText}
+            <span className="animate-blink">|</span>
+          </motion.p>
+          <div className="mb-6">
+            <motion.a
+              href={cv}
+              download="Hafiz Hamid CV"
+              target="_blank"
+              className="bg-[#00FBF4] text-black font-bold text-sm sm:text-base py-2 px-6 gradient-border inline-block"
+              variants={buttonVariants}
+              initial="hidden"
+              animate={["show", "pulse"]}
+              whileHover="hover"
+              whileTap={{ scale: 0.95 }}
+              aria-label="Download Hafiz Hamid's CV"
+            >
+              Download CV
+            </motion.a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
