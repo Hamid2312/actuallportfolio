@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { motion } from "framer-motion";
 import profileImage from "../assets/profile2.jpg"; // Adjust the path based on the actual location
-import cv from "../assets/updated_cv.pdf"
+import cv from "../assets/updated_cv.pdf";
 
 const HeroSection = () => {
   const [displayText, setDisplayText] = useState("");
@@ -155,7 +155,7 @@ const HeroSection = () => {
     animate: {
       rotate: [0, 360],
       transition: {
-        duration: 18,
+        duration: 24,
         ease: "linear",
         repeat: Infinity,
       },
@@ -163,7 +163,7 @@ const HeroSection = () => {
     hover: {
       rotate: [0, 360],
       transition: {
-        duration: 3,
+        duration: 6,
         ease: "linear",
         repeat: Infinity,
       },
@@ -264,7 +264,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div
-        className="absolute top-1/3 right-8 lg:right-12 transform -translate-y-1/2 z-8 w-40 h-40 hidden lg:block"
+        className="absolute -top-8 left-1/2 -translate-x-1/2 lg:top-1/3 lg:right-12 lg:left-auto lg:translate-x-0 transform -translate-y-1/2 z-8 w-40 h-40"
         animate={{ rotate: seconds * 15 }}
         transition={{ duration: 1, ease: "linear" }}
       >
@@ -293,14 +293,14 @@ const HeroSection = () => {
                 boxShadow: `0 0 10px ${color}, 0 0 20px ${color}80`,
               }}
               variants={rightOrbitVariants}
-              animate="animate"
+              Animate="animate"
             />
           ))}
         </div>
       </motion.div>
 
       <motion.div
-        className="absolute top-2/3 left-8 lg:left-12 transform -translate-y-1/2 z-8 w-32 h-32 hidden lg:block"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 lg:top-2/3 lg:left-12 lg:bottom-auto lg:translate-x-0 transform -translate-y-1/2 z-8 w-32 h-32"
         animate={{ rotate: -seconds * 10 }}
         transition={{ duration: 1, ease: "linear" }}
       >
@@ -390,7 +390,7 @@ const HeroSection = () => {
       </div>
 
       <motion.div
-        className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-4rem)] flex items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-12"
+        className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 h-[calc(100vh-4rem)] flex items-center justify-center pt-20 sm:pt-24 pb-16 sm:pb-20 lg:pt-16 lg:pb-8"
         variants={containerVariants}
         initial="hidden"
         animate="show"
@@ -415,15 +415,8 @@ const HeroSection = () => {
             className="relative w-36 h-36 sm:w-48 sm:h-48 lg:w-64 lg:h-64 mx-auto mt-4 mb-6"
             variants={imageVariants}
             initial="hidden"
-            animate={{
-              rotate: [0, 5, 0, -5, 0],
-              opacity: 1,
-            }}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 0 30px rgba(0, 251, 244, 0.8), 0 0 60px rgba(167, 139, 250, 0.6)",
-            }}
-            transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
+            animate={{ opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
           >
             <img
               src={profileImage}
@@ -444,14 +437,14 @@ const HeroSection = () => {
               whileHover="hover"
             >
               {[
-                { angle: 0, color: "#00FBF4" },
-                { angle: 45, color: "#A78BFA" },
-                { angle: 90, color: "#FFFFFF" },
-                { angle: 135, color: "#00FBF4" },
-                { angle: 180, color: "#A78BFA" },
-                { angle: 225, color: "#FFFFFF" },
-                { angle: 270, color: "#00FBF4" },
-                { angle: 315, color: "#A78BFA" },
+                { angle: 0, color: "#333333" },
+                { angle: 45, color: "#555555" },
+                { angle: 90, color: "#777777" },
+                { angle: 135, color: "#333333" },
+                { angle: 180, color: "#555555" },
+                { angle: 225, color: "#777777" },
+                { angle: 270, color: "#333333" },
+                { angle: 315, color: "#555555" },
               ].map(({ angle, color }, idx) => (
                 <motion.div
                   key={idx}
@@ -463,7 +456,7 @@ const HeroSection = () => {
                     x: 25 * Math.cos((angle * Math.PI) / 180),
                     y: 25 * Math.sin((angle * Math.PI) / 180),
                     background: color,
-                    boxShadow: `0 0 5px ${color}, 0 0 10px ${color}80`,
+                    boxShadow: `0 0 3px ${color}, 0 0 6px ${color}80`,
                   }}
                   animate={{ opacity: [0.3, 1, 0.3] }}
                   transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, delay: idx * 0.2 }}
