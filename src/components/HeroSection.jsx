@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Particles from "react-tsparticles";
 import { motion } from "framer-motion";
-import profileImage from "../assets/profile2.jpg"; // Adjust the path based on the actual location
+import profileImage from "../assets/profile2.jpg";
 import cv from "../assets/updated_cv.pdf";
 
 const HeroSection = () => {
@@ -120,7 +120,7 @@ const HeroSection = () => {
         "0 0 0 rgba(0, 251, 244, 0)",
       ],
       transition: {
-        duration: 2.5,
+        duration: 4,
         ease: "easeInOut",
         repeat: Infinity,
       },
@@ -170,6 +170,17 @@ const HeroSection = () => {
     },
   };
 
+  const loaderVariants = {
+    animate: {
+      rotate: [0, 360],
+      transition: {
+        duration: 2,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    },
+  };
+
   return (
     <div className="relative bg-gradient-to-br from-black mt-16 to-gray-900 min-h-screen">
       <style>
@@ -179,8 +190,8 @@ const HeroSection = () => {
             50% { opacity: 0; }
           }
           @keyframes glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6), 0 0 30px rgba(167, 139, 250, 0.4); }
-            50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8), 0 0 50px rgba(167, 139, 250, 0.6); }
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8); }
           }
           .animate-blink {
             animation: blink 1s step-end infinite;
@@ -191,20 +202,22 @@ const HeroSection = () => {
             background-clip: text;
             color: transparent;
           }
-          .gradient-border {
+          .sky-border {
             position: relative;
-            border: 3px solid transparent;
-            background-clip: padding-box;
+            border: 4px solid #00FBF4;
             border-radius: 9999px;
             animation: glow 3s ease-in-out infinite;
           }
-          .gradient-border::before {
-            content: '';
+          .loader-ring {
             position: absolute;
-            top: -3px; bottom: -3px; left: -3px; right: -3px;
-            background: linear-gradient(to right, #00FBF4, #A78BFA);
-            z-index: -1;
-            border-radius: 9999px;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border: 6px solid transparent;
+            border-top: 6px solid #00FBF4;
+            border-radius: 50%;
+            z-index: 15;
           }
         `}
       </style>
@@ -219,6 +232,46 @@ const HeroSection = () => {
       >
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30" />
+      </div>
+
+      <div className="absolute inset-0 z-6">
+        <Particles
+          id="sunlight-particles"
+          options={{
+            fullScreen: { enable: false },
+            particles: {
+              number: { value: 25, density: { enable: true, value_area: 800 } },
+              color: { value: ["#FFF9E6", "#E0FBFC", "#00FBF4"] },
+              shape: { type: "circle" },
+              opacity: {
+                value: 0.5,
+                random: true,
+                anim: { enable: true, speed: 1, opacity_min: 0, sync: false },
+              },
+              size: {
+                value: 2,
+                random: { enable: true, minimumValue: 1 },
+                anim: { enable: false },
+              },
+              move: {
+                enable: true,
+                speed: 3,
+                direction: "bottom",
+                random: true,
+                straight: false,
+                out_mode: "out",
+              },
+            },
+            interactivity: {
+              detect_on: "canvas",
+              events: {
+                onHover: { enable: false },
+                onClick: { enable: false },
+              },
+            },
+            retina_detect: true,
+          }}
+        />
       </div>
 
       <div className="absolute inset-0 z-5">
@@ -293,7 +346,7 @@ const HeroSection = () => {
                 boxShadow: `0 0 10px ${color}, 0 0 20px ${color}80`,
               }}
               variants={rightOrbitVariants}
-              Animate="animate"
+              animate="animate"
             />
           ))}
         </div>
@@ -397,7 +450,7 @@ const HeroSection = () => {
       >
         <div className="text-center max-w-2xl w-full scale-95 sm:scale-100">
           <motion.h1
-            className="text-white font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight mb-2"
+            className="text-white font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
             variants={headingVariants}
             style={{ textShadow: "0 0 10px rgba(0, 251, 244, 0.5)" }}
           >
@@ -415,13 +468,12 @@ const HeroSection = () => {
             className="relative w-36 h-36 sm:w-48 sm:h-48 lg:w-64 lg:h-64 mx-auto mt-4 mb-6"
             variants={imageVariants}
             initial="hidden"
-            animate={{ opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
+            animate="show"
           >
             <img
               src={profileImage}
               alt="Hafiz Hamid Ali Portrait"
-              className="rounded-full gradient-border object-cover w-full h-full z-20"
+              className="rounded-full sky-border object-cover w-full h-full z-20"
               onLoad={() => setHasImageLoaded(true)}
               onError={(e) => {
                 if (!hasImageLoaded) {
@@ -429,6 +481,11 @@ const HeroSection = () => {
                   e.target.src = "https://via.placeholder.com/300";
                 }
               }}
+            />
+            <motion.div
+              className="loader-ring"
+              variants={loaderVariants}
+              animate="animate"
             />
             <motion.div
               className="absolute inset-0 z-10"
@@ -477,7 +534,7 @@ const HeroSection = () => {
               href={cv}
               download="Hafiz Hamid CV"
               target="_blank"
-              className="bg-[#00FBF4] text-black font-bold text-sm sm:text-base py-2 px-6 gradient-border inline-block"
+              className="bg-[#00FBF4] text-black font-bold text-sm sm:text-base py-2 px-6 gradient-border inline-block rounded-lg"
               variants={buttonVariants}
               initial="hidden"
               animate={["show", "pulse"]}

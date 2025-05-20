@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import emailjs from '@emailjs/browser';
+import toast, { Toaster } from 'react-hot-toast';
 import facebookImage from '../assets/facebook.png';
 import githubImage from '../assets/github.png';
 import linkedinImage from '../assets/linkedin.png';
@@ -14,6 +16,7 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,14 +26,55 @@ const Contact = () => {
     }));
   };
 
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Form submitted! We will get back to you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
+    const { name, email, message } = formData;
+
+    // Validation
+    if (!name || !email || !message) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+    if (!validateEmail(email)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // EmailJS send
+    emailjs
+      .send(
+        'service_7jpwnyd', // Replace with your EmailJS Service ID
+        'template_nu0j2ai', // Replace with your EmailJS Template ID
+        {
+          name,
+          email,
+          message,
+        },
+        'RbVUdgkgNSU1oYJ2N' // Replace with your EmailJS User ID
+      )
+      .then(
+        (response) => {
+          console.log('EmailJS Success:', response.status, response.text);
+          toast.success('Message sent successfully!');
+          setFormData({
+            name: '',
+            email: '',
+            message: '',
+          });
+          setIsSubmitting(false);
+        },
+        (error) => {
+          console.error('EmailJS Error:', error);
+          toast.error('Failed to send message: ' + error.text);
+          setIsSubmitting(false);
+        }
+      );
   };
 
   const containerVariants = {
@@ -137,6 +181,11 @@ const Contact = () => {
     },
   };
 
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 },
+  };
+
   const { ref: titleRef, inView: titleInView } = useInView({
     triggerOnce: false,
     threshold: 0.3,
@@ -159,6 +208,7 @@ const Contact = () => {
 
   return (
     <div className="bg-gradient-to-br from-black to-gray-900 py-16 sm:py-20 relative overflow-hidden">
+      <Toaster position="top-right" />
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30 pointer-events-none" />
       
@@ -260,11 +310,15 @@ const Contact = () => {
           </div>
           <motion.button
             type="submit"
-            className="bg-[#00FBF4] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#00FBF4]/80 focus:ring-2 focus:ring-[#00FBF4] focus:ring-offset-2 transition duration-300 w-full relative z-10"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            disabled={isSubmitting}
+            className={`bg-[#00FBF4] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#00FBF4]/80 focus:ring-2 focus:ring-[#00FBF4] focus:ring-offset-2 transition duration-300 w-full relative z-10 ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            variants={buttonVariants}
+            whileHover={isSubmitting ? {} : 'hover'}
+            whileTap={isSubmitting ? {} : 'tap'}
           >
-            Submit
+            {isSubmitting ? 'Sending...' : 'Submit'}
           </motion.button>
         </motion.form>
 
