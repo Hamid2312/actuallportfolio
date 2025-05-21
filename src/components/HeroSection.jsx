@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Particles from "react-tsparticles";
 import { motion } from "framer-motion";
+import { ThemeContext } from "../context/ThemeContext.jsx";
 import profileImage from "../assets/profile2.jpg";
 import cv from "../assets/updated_cv.pdf";
 
 const HeroSection = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [displayText, setDisplayText] = useState("");
   const [seconds, setSeconds] = useState(new Date().getSeconds());
   const [hasImageLoaded, setHasImageLoaded] = useState(false);
@@ -107,18 +109,26 @@ const HeroSection = () => {
     },
     hover: {
       scale: 1.1,
-      boxShadow: "0 0 20px rgba(0, 251, 244, 0.7)",
+      boxShadow: theme === 'light' 
+        ? "0 0 20px rgba(0, 183, 180, 0.7)" 
+        : "0 0 20px rgba(0, 251, 244, 0.7)",
       transition: {
         duration: 0.3,
       },
     },
     pulse: {
       scale: [1, 1.07, 1],
-      boxShadow: [
-        "0 0 0 rgba(0, 251, 244, 0)",
-        "0 0 20px rgba(0, 251, 244, 0.5)",
-        "0 0 0 rgba(0, 251, 244, 0)",
-      ],
+      boxShadow: theme === 'light' 
+        ? [
+            "0 0 0 rgba(0, 183, 180, 0)",
+            "0 0 20px rgba(0, 183, 180, 0.5)",
+            "0 0 0 rgba(0, 183, 180, 0)",
+          ] 
+        : [
+            "0 0 0 rgba(0, 251, 244, 0)",
+            "0 0 20px rgba(0, 251, 244, 0.5)",
+            "0 0 0 rgba(0, 251, 244, 0)",
+          ],
       transition: {
         duration: 4,
         ease: "easeInOut",
@@ -182,7 +192,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-black mt-16 to-gray-900 min-h-screen">
+    <div className="relative bg-gradient-to-br from-white to-gray-100 dark:bg-gradient-to-br dark:from-black dark:to-gray-900 mt-16 min-h-screen">
       <style>
         {`
           @keyframes blink {
@@ -190,6 +200,10 @@ const HeroSection = () => {
             50% { opacity: 0; }
           }
           @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 183, 180, 0.6); }
+            50% { box-shadow: 0 0 25px rgba(0, 183, 180, 0.8); }
+          }
+          .dark @keyframes glow {
             0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6); }
             50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8); }
           }
@@ -197,16 +211,27 @@ const HeroSection = () => {
             animation: blink 1s step-end infinite;
           }
           .gradient-text {
+            background: linear-gradient(to right, #00B7B4, #7C3AED);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent; /* Ensure compatibility */
+          }
+          .dark .gradient-text {
             background: linear-gradient(to right, #00FBF4, #A78BFA);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            -webkit-text-fill-color: transparent; /* Ensure compatibility */
           }
           .sky-border {
             position: relative;
-            border: 4px solid #00FBF4;
+            border: 4px solid #00B7B4;
             border-radius: 9999px;
             animation: glow 3s ease-in-out infinite;
+          }
+          .dark .sky-border {
+            border: 4px solid #00FBF4;
           }
           .loader-ring {
             position: absolute;
@@ -215,23 +240,45 @@ const HeroSection = () => {
             right: -8px;
             bottom: -8px;
             border: 6px solid transparent;
-            border-top: 6px solid #00FBF4;
+            border-top: 6px solid #00B7B4;
             border-radius: 50%;
             z-index: 15;
+          }
+          .dark .loader-ring {
+            border-top: 6px solid #00FBF4;
           }
         `}
       </style>
 
+      {/* Theme Toggle Button */}
+      {/* <div className="absolute top-4 right-4 z-30">
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-600"
+          aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+        >
+          {theme === 'light' ? (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+          )}
+        </button>
+      </div> */}
+
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: `radial-gradient(circle, #1A1A1A 10%, black 100%)`,
+          backgroundImage: `radial-gradient(circle, ${theme === 'light' ? '#F3F4F6 10%, white 100%' : '#1A1A1A 10%, black 100%'})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30" />
+        <div className="absolute inset-0 bg-white/40 dark:bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-cyan-100/10 to-transparent opacity-30 dark:bg-gradient-to-t dark:from-[#00FBF4]/10 dark:to-transparent" />
       </div>
 
       <div className="absolute inset-0 z-6">
@@ -241,7 +288,7 @@ const HeroSection = () => {
             fullScreen: { enable: false },
             particles: {
               number: { value: 25, density: { enable: true, value_area: 800 } },
-              color: { value: ["#FFF9E6", "#E0FBFC", "#00FBF4"] },
+              color: { value: theme === 'light' ? ["#E0F2FE", "#BAE6FD", "#00B7B4"] : ["#FFF9E6", "#E0FBFC", "#00FBF4"] },
               shape: { type: "circle" },
               opacity: {
                 value: 0.5,
@@ -281,7 +328,7 @@ const HeroSection = () => {
             fullScreen: { enable: false },
             particles: {
               number: { value: 30, density: { enable: true, value_area: 1200 } },
-              color: { value: ["#00FBF4", "#FFFFFF", "#A78BFA"] },
+              color: { value: theme === 'light' ? ["#00B7B4", "#4B5563", "#7C3AED"] : ["#00FBF4", "#FFFFFF", "#A78BFA"] },
               shape: { type: "star", polygon: { nb_sides: 5 } },
               opacity: {
                 value: 0.6,
@@ -323,15 +370,15 @@ const HeroSection = () => {
       >
         <div className="relative w-full h-full">
           <div
-            className="absolute top-1/2 left-1/2 w-5 h-5 bg-[#00FBF4] rounded-full transform -translate-x-1/2 -translate-y-1/2"
-            style={{ boxShadow: "0 0 20px rgba(0, 251, 244, 0.8), 0 0 40px rgba(0, 251, 244, 0.4)" }}
+            className="absolute top-1/2 left-1/2 w-5 h-5 bg-cyan-600 dark:bg-[#00FBF4] rounded-full transform -translate-x-1/2 -translate-y-1/2"
+            style={{ boxShadow: theme === 'light' ? "0 0 20px rgba(0, 183, 180, 0.8), 0 0 40px rgba(0, 183, 180, 0.4)" : "0 0 20px rgba(0, 251, 244, 0.8), 0 0 40px rgba(0, 251, 244, 0.4)" }}
           />
           {[
-            { angle: 0, color: "#00FBF4" },
-            { angle: 72, color: "#FFFFFF" },
-            { angle: 144, color: "#A78BFA" },
-            { angle: 216, color: "#00FBF4" },
-            { angle: 288, color: "#FFFFFF" },
+            { angle: 0, color: theme === 'light' ? "#00B7B4" : "#00FBF4" },
+            { angle: 72, color: theme === 'light' ? "#4B5563" : "#FFFFFF" },
+            { angle: 144, color: theme === 'light' ? "#7C3AED" : "#A78BFA" },
+            { angle: 216, color: theme === 'light' ? "#00B7B4" : "#00FBF4" },
+            { angle: 288, color: theme === 'light' ? "#4B5563" : "#FFFFFF" },
           ].map(({ angle, color }, idx) => (
             <motion.div
               key={idx}
@@ -359,18 +406,18 @@ const HeroSection = () => {
       >
         <div className="relative w-full h-full">
           <motion.div
-            className="absolute top-1/2 left-1/2 w-5 h-5 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"
-            style={{ boxShadow: "0 0 20px rgba(255, 255, 255, 0.8)" }}
+            className="absolute top-1/2 left-1/2 w-5 h-5 bg-gray-600 dark:bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2"
+            style={{ boxShadow: theme === 'light' ? "0 0 20px rgba(75, 85, 99, 0.8)" : "0 0 20px rgba(255, 255, 255, 0.8)" }}
             animate={{ scale: [1, 1.1, 1] }}
             transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
           />
           {[
-            { angle: 0, radius: 40, color: "#00FBF4", offset: 0.8 },
-            { angle: 60, radius: 35, color: "#A78BFA", offset: 1.2 },
-            { angle: 120, radius: 45, color: "#00FBF4", offset: 0.9 },
-            { angle: 180, radius: 40, color: "#A78BFA", offset: 1.1 },
-            { angle: 240, radius: 38, color: "#00FBF4", offset: 0.7 },
-            { angle: 300, radius: 42, color: "#A78BFA", offset: 1.0 },
+            { angle: 0, radius: 40, color: theme === 'light' ? "#00B7B4" : "#00FBF4", offset: 0.8 },
+            { angle: 60, radius: 35, color: theme === 'light' ? "#7C3AED" : "#A78BFA", offset: 1.2 },
+            { angle: 120, radius: 45, color: theme === 'light' ? "#00B7B4" : "#00FBF4", offset: 0.9 },
+            { angle: 180, radius: 40, color: theme === 'light' ? "#7C3AED" : "#A78BFA", offset: 1.1 },
+            { angle: 240, radius: 38, color: theme === 'light' ? "#00B7B4" : "#00FBF4", offset: 0.7 },
+            { angle: 300, radius: 42, color: theme === 'light' ? "#7C3AED" : "#A78BFA", offset: 1.0 },
           ].map(({ angle, radius, color, offset }, idx) => (
             <motion.div
               key={idx}
@@ -398,7 +445,7 @@ const HeroSection = () => {
             fullScreen: { enable: false },
             particles: {
               number: { value: 50, density: { enable: true, value_area: 1000 } },
-              color: { value: ["#00FBF4", "#A78BFA"] },
+              color: { value: theme === 'light' ? ["#00B7B4", "#7C3AED"] : ["#00FBF4", "#A78BFA"] },
               shape: { type: ["circle", "triangle", "star"], polygon: { nb_sides: 5 } },
               opacity: {
                 value: 0.4,
@@ -413,7 +460,7 @@ const HeroSection = () => {
               line_linked: {
                 enable: true,
                 distance: 150,
-                color: "#A78BFA",
+                color: theme === 'light' ? "#7C3AED" : "#A78BFA",
                 opacity: 0.2,
                 width: 1,
               },
@@ -450,17 +497,20 @@ const HeroSection = () => {
       >
         <div className="text-center max-w-2xl w-full scale-95 sm:scale-100">
           <motion.h1
-            className="text-white font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
+            className="text-gray-900 dark:text-white font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
             variants={headingVariants}
-            style={{ textShadow: "0 0 10px rgba(0, 251, 244, 0.5)" }}
+            style={{ textShadow: theme === 'light' ? "0 0 10px rgba(0, 183, 180, 0.5)" : "0 0 10px rgba(0, 251, 244, 0.5)" }}
           >
             Hi, I'm
           </motion.h1>
           <motion.span
-            className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl block mb-4 gradient-text"
+            className="font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl block mb-4 gradient-text z-30"
             variants={nameVariants}
-            style={{ textShadow: "0 0 20px rgba(0, 251, 244, 0.6)" }}
-            whileHover={{ scale: 1.05, textShadow: "0 0 25px rgba(0, 251, 244, 0.8)" }}
+            style={{ 
+              textShadow: theme === 'light' ? "0 0 20px rgba(0, 183, 180, 0.6)" : "0 0 20px rgba(0, 251, 244, 0.6)",
+              position: 'relative',
+            }}
+            whileHover={{ scale: 1.05, textShadow: theme === 'light' ? "0 0 25px rgba(0, 183, 180, 0.8)" : "0 0 25px rgba(0, 251, 244, 0.8)" }}
           >
             Hafiz Hamid Ali
           </motion.span>
@@ -494,14 +544,14 @@ const HeroSection = () => {
               whileHover="hover"
             >
               {[
-                { angle: 0, color: "#333333" },
-                { angle: 45, color: "#555555" },
-                { angle: 90, color: "#777777" },
-                { angle: 135, color: "#333333" },
-                { angle: 180, color: "#555555" },
-                { angle: 225, color: "#777777" },
-                { angle: 270, color: "#333333" },
-                { angle: 315, color: "#555555" },
+                { angle: 0, color: theme === 'light' ? "#4B5563" : "#333333" },
+                { angle: 45, color: theme === 'light' ? "#6B7280" : "#555555" },
+                { angle: 90, color: theme === 'light' ? "#9CA3AF" : "#777777" },
+                { angle: 135, color: theme === 'light' ? "#4B5563" : "#333333" },
+                { angle: 180, color: theme === 'light' ? "#6B7280" : "#555555" },
+                { angle: 225, color: theme === 'light' ? "#9CA3AF" : "#777777" },
+                { angle: 270, color: theme === 'light' ? "#4B5563" : "#333333" },
+                { angle: 315, color: theme === 'light' ? "#6B7280" : "#555555" },
               ].map(({ angle, color }, idx) => (
                 <motion.div
                   key={idx}
@@ -522,9 +572,9 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
           <motion.p
-            className="text-white font-light text-sm sm:text-base md:text-lg lg:text-xl mb-6 mx-auto max-w-xl relative"
+            className="text-gray-700 dark:text-white font-light text-sm sm:text-base md:text-lg lg:text-xl mb-6 mx-auto max-w-xl relative"
             variants={textVariants}
-            style={{ textShadow: "0 0 3px rgba(0, 0, 0, 0.4)" }}
+            style={{ textShadow: theme === 'light' ? "0 0 3px rgba(0, 0, 0, 0.4)" : "0 0 3px rgba(0, 0, 0, 0.4)" }}
           >
             {displayText}
             <span className="animate-blink">|</span>
@@ -534,7 +584,7 @@ const HeroSection = () => {
               href={cv}
               download="Hafiz Hamid CV"
               target="_blank"
-              className="bg-[#00FBF4] text-black font-bold text-sm sm:text-base py-2 px-6 gradient-border inline-block rounded-lg"
+              className={`bg-cyan-600 dark:bg-[#00FBF4] text-white dark:text-black font-bold text-sm sm:text-base py-2 px-6 inline-block rounded-lg ${theme === 'light' ? 'sky-border' : ''}`}
               variants={buttonVariants}
               initial="hidden"
               animate={["show", "pulse"]}

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import MyExperience from "./components/MyExperience";
@@ -9,7 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import "aos/dist/aos.css";
 import AOS from "aos";
-import ScrollToTop from "./components/ScrollToTop"; // Import the ScrollToTop component
+import ScrollToTop from "./components/ScrollToTop";
 
 // Layout component to wrap the navbar, content, and footer
 const Layout = ({ children }) => {
@@ -33,27 +34,29 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop /> {/* Include ScrollToTop here */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <HeroSection />
-              <MyExperience />
-              <Skills />
-              <Projects />
-              <Contact />
-            </Layout>
-          }
-        />
-        <Route path="/my-experience" element={<Layout><MyExperience /></Layout>} />
-        <Route path="/skills" element={<Layout><Skills /></Layout>} />
-        <Route path="/projects" element={<Layout><Projects /></Layout>} />
-        <Route path="/contact" element={<Layout><Contact /></Layout>} />
-      </Routes>
-    </Router>
+    <ThemeProvider> {/* Wrap Router with ThemeProvider */}
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Layout>
+                <HeroSection />
+                <MyExperience />
+                <Skills />
+                <Projects />
+                <Contact />
+              </Layout>
+            }
+          />
+          <Route path="/my-experience" element={<Layout><MyExperience /></Layout>} />
+          <Route path="/skills" element={<Layout><Skills /></Layout>} />
+          <Route path="/projects" element={<Layout><Projects /></Layout>} />
+          <Route path="/contact" element={<Layout><Contact /></Layout>} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

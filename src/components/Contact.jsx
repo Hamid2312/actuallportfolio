@@ -34,7 +34,6 @@ const Contact = () => {
     e.preventDefault();
     const { name, email, message } = formData;
 
-    // Validation
     if (!name || !email || !message) {
       toast.error('Please fill in all fields.');
       return;
@@ -46,27 +45,18 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // EmailJS send
     emailjs
       .send(
-        'service_7jpwnyd', // Replace with your EmailJS Service ID
-        'template_nu0j2ai', // Replace with your EmailJS Template ID
-        {
-          name,
-          email,
-          message,
-        },
-        'RbVUdgkgNSU1oYJ2N' // Replace with your EmailJS User ID
+        'service_7jpwnyd',
+        'template_nu0j2ai',
+        { name, email, message },
+        'RbVUdgkgNSU1oYJ2N'
       )
       .then(
         (response) => {
           console.log('EmailJS Success:', response.status, response.text);
           toast.success('Message sent successfully!');
-          setFormData({
-            name: '',
-            email: '',
-            message: '',
-          });
+          setFormData({ name: '', email: '', message: '' });
           setIsSubmitting(false);
         },
         (error) => {
@@ -103,10 +93,8 @@ const Contact = () => {
     },
     hover: {
       scale: 1.1,
-      boxShadow: '0 0 25px rgba(0, 251, 244, 0.6)',
-      transition: {
-        duration: 0.3,
-      },
+      boxShadow: '0 0 25px rgba(0, 183, 180, 0.6)',
+      transition: { duration: 0.3 },
     },
   };
 
@@ -114,10 +102,7 @@ const Contact = () => {
     hover: {
       scale: 1.2,
       rotate: 360,
-      transition: {
-        duration: 0.8,
-        ease: 'easeInOut',
-      },
+      transition: { duration: 0.8, ease: 'easeInOut' },
     },
   };
 
@@ -126,10 +111,7 @@ const Contact = () => {
     show: {
       opacity: 1,
       scale: 1,
-      transition: {
-        duration: 1,
-        ease: 'easeOut',
-      },
+      transition: { duration: 1, ease: 'easeOut' },
     },
   };
 
@@ -138,11 +120,7 @@ const Contact = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 1,
-        delay: 0.3,
-        ease: 'easeOut',
-      },
+      transition: { duration: 1, delay: 0.3, ease: 'easeOut' },
     },
   };
 
@@ -151,21 +129,16 @@ const Contact = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: 'easeOut',
-      },
+      transition: { duration: 0.8, ease: 'easeOut' },
     },
   };
 
   const inputVariants = {
     focus: {
       scale: 1.02,
-      borderColor: '#00FBF4',
-      boxShadow: '0 0 10px rgba(0, 251, 244, 0.5)',
-      transition: {
-        duration: 0.3,
-      },
+      borderColor: '#00B7B4',
+      boxShadow: '0 0 10px rgba(0, 183, 180, 0.5)',
+      transition: { duration: 0.3 },
     },
   };
 
@@ -174,46 +147,20 @@ const Contact = () => {
     show: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 1,
-        ease: 'easeOut',
-      },
+      transition: { duration: 1, ease: 'easeOut' },
     },
   };
 
-  const buttonVariants = {
-    hover: { scale: 1.05 },
-    tap: { scale: 0.95 },
-  };
-
-  const { ref: titleRef, inView: titleInView } = useInView({
-    triggerOnce: false,
-    threshold: 0.3,
-  });
-
-  const { ref: formRef, inView: formInView } = useInView({
-    triggerOnce: false,
-    threshold: 0.3,
-  });
-
-  const { ref: cardsRef, inView: cardsInView } = useInView({
-    triggerOnce: false,
-    threshold: 0.3,
-  });
-
-  const { ref: mapRef, inView: mapInView } = useInView({
-    triggerOnce: false,
-    threshold: 0.3,
-  });
+  const { ref: titleRef, inView: titleInView } = useInView({ triggerOnce: false, threshold: 0.3 });
+  const { ref: formRef, inView: formInView } = useInView({ triggerOnce: false, threshold: 0.3 });
+  const { ref: cardsRef, inView: cardsInView } = useInView({ triggerOnce: false, threshold: 0.3 });
+  const { ref: mapRef, inView: mapInView } = useInView({ triggerOnce: false, threshold: 0.3 });
 
   return (
-    <div className="bg-gradient-to-br from-black to-gray-900 py-16 sm:py-20 relative overflow-hidden">
+    <div className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-16 sm:py-20 relative overflow-hidden">
       <Toaster position="top-right" />
-      {/* Subtle Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30 pointer-events-none" />
-      
+      <div className="overlay" />
       <div className="container mx-auto px-6 sm:px-8 max-w-6xl">
-        {/* Title Section */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
           ref={titleRef}
@@ -221,37 +168,36 @@ const Contact = () => {
           animate={titleInView ? 'show' : 'hidden'}
         >
           <motion.h1
-            className="text-[#00FBF4] text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 relative"
+            className="gradient-text text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 relative"
             variants={headingVariants}
-            whileHover={{ scale: 1.05, textShadow: '0 0 15px rgba(0, 251, 244, 0.7)' }}
+            whileHover={{ scale: 1.05 }}
           >
             Get in Touch
-            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#00FBF4] rounded-full" />
+            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-cyan-600 dark:bg-[#00FBF4] rounded-full" />
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg lg:text-xl text-white font-light max-w-2xl mx-auto"
+            className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-white font-light max-w-2xl mx-auto"
             variants={subheadingVariants}
           >
             Have any questions or want to work together? Reach out via the form or through any platform below.
           </motion.p>
         </motion.div>
 
-        {/* Contact Form Section */}
         <motion.form
           onSubmit={handleSubmit}
-          className="bg-black/50 backdrop-blur-md p-4 sm:p-6 rounded-xl shadow-lg max-w-3xl mx-auto mb-12 sm:mb-16"
+          className="card p-4 sm:p-6 max-w-3xl mx-auto mb-12 sm:mb-16"
           ref={formRef}
           variants={formVariants}
           initial="hidden"
           animate={formInView ? 'show' : 'hidden'}
         >
-          <h2 className="text-2xl sm:text-3xl text-[#00FBF4] font-bold mb-6 text-center relative z-10">
+          <h2 className="gradient-text text-2xl sm:text-3xl font-bold mb-6 text-center relative z-10">
             Send a Message
           </h2>
           <div className="mb-4">
             <label
               htmlFor="name"
-              className="block text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
+              className="block text-gray-900 dark:text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
             >
               Your Name
             </label>
@@ -261,7 +207,7 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full p-3 border border-[#00FBF4]/50 rounded-lg bg-black/80 text-white focus:outline-none relative z-10"
+              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none relative z-10"
               placeholder="Enter your name"
               required
               whileFocus="focus"
@@ -271,7 +217,7 @@ const Contact = () => {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
+              className="block text-gray-900 dark:text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
             >
               Your Email
             </label>
@@ -281,7 +227,7 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-3 border border-[#00FBF4]/50 rounded-lg bg-black/80 text-white focus:outline-none relative z-10"
+              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none relative z-10"
               placeholder="Enter your email"
               required
               whileFocus="focus"
@@ -291,7 +237,7 @@ const Contact = () => {
           <div className="mb-6">
             <label
               htmlFor="message"
-              className="block text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
+              className="block text-gray-900 dark:text-white text-sm sm:text-lg font-medium mb-2 relative z-10"
             >
               Your Message
             </label>
@@ -300,7 +246,7 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="w-full p-3 border border-[#00FBF4]/50 rounded-lg bg-black/80 text-white focus:outline-none relative z-10"
+              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none relative z-10"
               placeholder="Type your message here"
               rows="4"
               required
@@ -311,18 +257,14 @@ const Contact = () => {
           <motion.button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-[#00FBF4] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#00FBF4]/80 focus:ring-2 focus:ring-[#00FBF4] focus:ring-offset-2 transition duration-300 w-full relative z-10 ${
-              isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-            variants={buttonVariants}
-            whileHover={isSubmitting ? {} : 'hover'}
-            whileTap={isSubmitting ? {} : 'tap'}
+            className={`btn w-full relative z-10 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            whileHover={isSubmitting ? {} : { scale: 1.05 }}
+            whileTap={isSubmitting ? {} : { scale: 0.95 }}
           >
             {isSubmitting ? 'Sending...' : 'Submit'}
           </motion.button>
         </motion.form>
 
-        {/* Contact Options Section */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16"
           ref={cardsRef}
@@ -380,7 +322,6 @@ const Contact = () => {
           />
         </motion.div>
 
-        {/* Map Section */}
         <motion.div
           className="mb-12"
           ref={mapRef}
@@ -388,7 +329,7 @@ const Contact = () => {
           initial="hidden"
           animate={mapInView ? 'show' : 'hidden'}
         >
-          <h2 className="text-2xl sm:text-3xl text-[#00FBF4] font-bold text-center mb-6 relative z-10">
+          <h2 className="gradient-text text-2xl sm:text-3xl font-bold text-center mb-6 relative z-10">
             Location
           </h2>
           <motion.iframe
@@ -396,7 +337,7 @@ const Contact = () => {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13699.017635739825!2d74.30802083228114!3d31.54083235020181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391907405303089f%3A0x809e59a3e7899ee2!2sChungi%20Amar%20Sidhu%2C%20Lahore%2C%20Punjab!5e0!3m2!1sen!2s!4v1691778740163!5m2!1sen!2s"
             width="100%"
             height="400"
-            className="border-2 border-[#00FBF4]/50 rounded-xl"
+            className="border-2 border-gray-300 dark:border-[#00FBF4]/50 rounded-xl"
             loading="lazy"
             variants={mapVariants}
           />
@@ -409,13 +350,11 @@ const Contact = () => {
 const ContactCard = ({ href, image, alt, text, cardVariants, imageVariants }) => {
   return (
     <motion.div
-      className="bg-black/50 backdrop-blur-md p-4 sm:p-6 rounded-xl shadow-lg border border-[#00FBF4]/50 text-center relative overflow-hidden"
+      className="card p-4 sm:p-6 text-center relative overflow-hidden"
       variants={cardVariants}
       whileHover="hover"
     >
-      {/* Subtle Card Glow Effect */}
-      <div className="absolute inset-0 bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-      
+      <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
       <a
         href={href}
         target="_blank"
@@ -426,11 +365,11 @@ const ContactCard = ({ href, image, alt, text, cardVariants, imageVariants }) =>
         <motion.img
           src={image}
           alt={alt}
-          className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full border-2 border-[#00FBF4]/50"
+          className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full border-2 border-gray-300 dark:border-[#00FBF4]/50"
           variants={imageVariants}
           whileHover="hover"
         />
-        <h3 className="text-base sm:text-lg text-white font-bold">{text}</h3>
+        <h3 className="text-base sm:text-lg text-gray-900 dark:text-white font-bold">{text}</h3>
       </a>
     </motion.div>
   );

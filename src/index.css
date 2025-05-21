@@ -1,4 +1,85 @@
-/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-gradient-to-br from-white to-gray-100 text-gray-900;
+}
+
+.dark body {
+  @apply bg-gradient-to-br from-black to-gray-900 text-white;
+}
+
+/* Default text styles */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-extrabold text-gray-900;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  @apply text-white;
+}
+
+p {
+  @apply text-gray-700 font-light;
+}
+
+.dark p {
+  @apply text-white;
+}
+
+/* Gradient text for titles, names, or highlights */
+.gradient-text {
+  background: linear-gradient(to right, #00B7B4, #7C3AED);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-text {
+  background: linear-gradient(to right, #00FBF4, #A78BFA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Button styles */
+.btn {
+  @apply bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg;
+  border: 4px solid #00B7B4;
+  animation: glow 3s ease-in-out infinite;
+}
+
+.dark .btn {
+  @apply bg-[#00FBF4] text-black;
+  border: none;
+}
+
+/* Card styles */
+.card {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-[#00FBF4]/50;
+}
+
+/* Link styles */
+.link {
+  @apply text-gray-900 dark:text-white font-bold hover:text-cyan-600 dark:hover:text-[#00FBF4] transition duration-300;
+}
+
+/* Subtle overlay for sections */
+.overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-cyan-100/10 to-transparent dark:from-[#00FBF4]/10 dark:to-transparent opacity-30 pointer-events-none;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 183, 180, 0.6); }
+  50% { box-shadow: 0 0 25px rgba(0, 183, 180, 0.8); }
+}
+
+.dark @keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6); }
+  50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8); }
+}

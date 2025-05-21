@@ -38,10 +38,7 @@ const MyExperience = () => {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.4,
-        delayChildren: 0.5,
-      },
+      transition: { staggerChildren: 0.4, delayChildren: 0.5 },
     },
   };
 
@@ -51,73 +48,48 @@ const MyExperience = () => {
       opacity: 1,
       y: 0,
       rotateX: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
+      transition: { duration: 0.8, ease: "easeOut" },
     },
     hover: {
       scale: 1.05,
-      boxShadow: "0 0 20px rgba(0, 251, 244, 0.5)",
-      transition: {
-        duration: 0.3,
-      },
+      boxShadow: "0 0 20px rgba(0, 183, 180, 0.5)",
+      transition: { duration: 0.3 },
     },
   };
 
   const headingVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 1,
-        ease: "easeOut",
-      },
-    },
+    show: { opacity: 1, scale: 1, transition: { duration: 1, ease: "easeOut" } },
   };
 
   const subheadingVariants = {
     hidden: { opacity: 0, y: 30 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1,
-        delay: 0.3,
-        ease: "easeOut",
-      },
-    },
+    show: { opacity: 1, y: 0, transition: { duration: 1, delay: 0.3, ease: "easeOut" } },
   };
 
-  const { ref, inView } = useInView({
-    triggerOnce: false,
-    threshold: 0.3,
-  });
+  const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.3 });
 
   return (
     <div
       id="my-experience-section"
-      className="bg-gradient-to-br from-black to-gray-900 min-h-screen py-12 sm:py-16 flex flex-col justify-center items-center relative overflow-hidden"
+      className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 min-h-screen py-12 sm:py-16 flex flex-col justify-center items-center relative overflow-hidden"
       ref={ref}
     >
-      {/* Subtle Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#00FBF4]/10 to-transparent opacity-30 pointer-events-none" />
-      
+      <div className="overlay" />
       <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <motion.h1
-            className="text-[#00FBF4] text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 relative"
+            className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 relative"
             variants={headingVariants}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            whileHover={{ scale: 1.05, textShadow: "0 0 15px rgba(0, 251, 244, 0.7)" }}
+            whileHover={{ scale: 1.05 }}
           >
             My Experience
-            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-[#00FBF4] rounded-full" />
+            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-cyan-600 dark:bg-[#00FBF4] rounded-full" />
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg lg:text-xl text-white font-light max-w-2xl mx-auto"
+            className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-white font-light max-w-2xl mx-auto"
             variants={subheadingVariants}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
@@ -134,29 +106,25 @@ const MyExperience = () => {
           {experiences.map((experience, index) => (
             <motion.div
               key={index}
-              className="bg-black/50 backdrop-blur-md p-4 sm:p-6 rounded-xl border border-[#00FBF4]/50 shadow-lg relative overflow-hidden"
+              className="card p-4 sm:p-6 relative overflow-hidden"
               variants={cardVariants}
-              initial="hidden"
-              animate={inView ? "show" : "hidden"}
               whileHover="hover"
             >
-              {/* Subtle Card Glow Effect */}
-              <div className="absolute inset-0 bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              
+              <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <motion.h3
-                className="text-lg sm:text-xl lg:text-2xl text-[#00FBF4] font-bold mb-2 relative z-10"
+                className="gradient-text text-lg sm:text-xl lg:text-2xl font-bold mb-2 relative z-10"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.3 }}
               >
                 {experience.title}
               </motion.h3>
-              <p className="text-base sm:text-lg text-white font-semibold mb-1 relative z-10">
+              <p className="text-base sm:text-lg text-gray-900 dark:text-white font-semibold mb-1 relative z-10">
                 {experience.company}
               </p>
-              <p className="text-sm sm:text-base text-gray-300 mb-4 relative z-10">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-white mb-4 relative z-10">
                 {experience.duration}
               </p>
-              <p className="text-sm sm:text-base text-white font-light relative z-10">
+              <p className="text-sm sm:text-base text-gray-700 dark:text-white font-light relative z-10">
                 {experience.description}
               </p>
             </motion.div>
