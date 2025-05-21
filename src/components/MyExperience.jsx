@@ -1,15 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import zaffLogo from "../assets/ZaffLogo.png";
+import freelancerLogo from "../assets/FiverrLogo.png";
+import famefingLogo from "../assets/FamefingLogo.png";
 
 const MyExperience = () => {
   const experiences = [
     {
       title: "Learning",
-      company: "Zaff institue",
+      company: "Zaff Institute",
       duration: "December 2023 - February 2024",
       description:
-        "I learned web development from this institue and recieved certification from there. I learned lot of things and explor many things as a good leaner and start internship there.",
+        "I learned web development from this institute and received certification from there. I learned a lot of things and explored many things as a good learner and started an internship there.",
+      logo: zaffLogo,
     },
     {
       title: "Frontend Developer",
@@ -17,6 +21,7 @@ const MyExperience = () => {
       duration: "February 2024 - September 2024",
       description:
         "Developed responsive, interactive websites using React, HTML, CSS, and JavaScript. I worked on different projects there.",
+      logo: zaffLogo,
     },
     {
       title: "Freelancer - Frontend Developer",
@@ -24,6 +29,7 @@ const MyExperience = () => {
       duration: "July 2024 - September 2024",
       description:
         "Worked as a freelancer, building custom websites for clients using React, HTML, CSS, and JavaScript. Focused on providing high-quality, user-friendly interfaces for small businesses.",
+      logo: freelancerLogo,
     },
     {
       title: "Frontend Developer",
@@ -31,6 +37,7 @@ const MyExperience = () => {
       duration: "October 2024 - present",
       description:
         "Leading the development of modern web applications with React and TypeScript, focusing on performance optimization and user-friendly interfaces.",
+      logo: famefingLogo,
     },
   ];
 
@@ -65,6 +72,12 @@ const MyExperience = () => {
   const subheadingVariants = {
     hidden: { opacity: 0, y: 30 },
     show: { opacity: 1, y: 0, transition: { duration: 1, delay: 0.3, ease: "easeOut" } },
+  };
+
+  const logoVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+    hover: { scale: 1.1, transition: { duration: 0.3 } },
   };
 
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.3 });
@@ -111,13 +124,24 @@ const MyExperience = () => {
               whileHover="hover"
             >
               <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              <motion.h3
-                className="gradient-text text-lg sm:text-xl lg:text-2xl font-bold mb-2 relative z-10"
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                {experience.title}
-              </motion.h3>
+              <div className="flex justify-between items-start mb-2">
+                <motion.h3
+                  className="gradient-text text-lg sm:text-xl lg:text-2xl font-bold relative z-10"
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {experience.title}
+                </motion.h3>
+                <motion.img
+                  src={experience.logo}
+                  alt={`${experience.company} Logo`}
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-gray-300 dark:border-[#00FBF4]/50 object-contain bg-white dark:bg-gray-800 relative z-10"
+                  variants={logoVariants}
+                  initial="hidden"
+                  animate="show"
+                  whileHover="hover"
+                />
+              </div>
               <p className="text-base sm:text-lg text-gray-900 dark:text-white font-semibold mb-1 relative z-10">
                 {experience.company}
               </p>
