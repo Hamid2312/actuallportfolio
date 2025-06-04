@@ -1,18 +1,17 @@
+// src/components/Layout.jsx
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "./Navbar"; // Adjust import based on your naming
 import CursorBubbling from "./CursorBubbling";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen relative">
-      <CursorBubbling />
+    <div className="min-h-screen">
       <Navbar />
-      <main className="flex-1 pt-16">
-        <Outlet />
+      <CursorBubbling /> {/* Add CursorBubbling here */}
+      <main>
+        <Outlet /> {/* Renders the child route components */}
       </main>
-      <Footer />
     </div>
   );
 };

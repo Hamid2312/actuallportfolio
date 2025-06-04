@@ -9,6 +9,8 @@ import linkedinImage from '../assets/linkedin.png';
 import emailImage from '../assets/email.png';
 import whatsappImage from '../assets/whatsapp.png';
 import FiverrImage from '../assets/fiverr.png';
+import freelancerImage from '../assets/freelancer.png'
+import upworkImage from '../assets/upwork.png'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -317,6 +319,22 @@ const Contact = () => {
             image={FiverrImage}
             alt="Fiverr Profile"
             text="Fiverr Profile"
+            cardVariants={cardVariants}
+            imageVariants={imageVariants}
+          />
+             <ContactCard
+            href="https://www.freelancer.com/u/hamid2312"
+            image={freelancerImage}
+            alt="Freelancer Profile"
+            text="Freelancer Profile"
+            cardVariants={cardVariants}
+            imageVariants={imageVariants}
+          />
+                  <ContactCard
+            href="https://www.upwork.com/freelancers/~01a682e1d9f5f13336"
+            image={upworkImage}
+            alt="Upwork Profile"
+            text="Upwork Profile"
             cardVariants={cardVariants}
             imageVariants={imageVariants}
           />
