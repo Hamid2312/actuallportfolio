@@ -164,14 +164,15 @@ const Projects = () => {
                 initial="hidden"
                 animate="show"
                 whileHover="hover"
-                style={{ minWidth: "250px", maxWidth: "300px", flex: "0 0 auto" }}
+                style={{ minWidth: "200px", maxWidth: "250px", flex: "0 0 auto" }} // Smaller card size on mobile
+                className="card p-3 sm:p-4 relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg sm:min-w-[250px] sm:max-w-[300px]" // Responsive card width
               >
                 <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
                 <div className="overflow-hidden rounded-md mb-3">
                   <motion.img
                     src={project.image}
                     alt={`${project.title} Preview`}
-                    className="w-full h-40 sm:h-48 object-cover relative z-10"
+                    className="w-full h-32 sm:h-40 md:h-48 object-cover object-center relative z-10" // Responsive image height
                     variants={imageVariants}
                     whileHover="hover"
                   />
