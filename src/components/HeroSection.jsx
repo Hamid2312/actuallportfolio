@@ -3,7 +3,7 @@ import Particles from "react-tsparticles";
 import { motion } from "framer-motion";
 import { ThemeContext } from "../context/ThemeContext.jsx";
 import profileImage from "../assets/profile2.jpg";
-import cv from "../assets/updated_cv.pdf";
+import cv from "../assets/Hamid's cv.pdf";
 
 const HeroSection = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
