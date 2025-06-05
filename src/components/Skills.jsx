@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { motion } from "framer-motion";
 import htmlLogo from "../assets/html.png";
 import cssLogo from "../assets/css.png";
 import jsLogo from "../assets/javaScript.png";
@@ -25,10 +25,14 @@ const Skills = () => {
     { name: "Git", logo: git },
     { name: "Vite", logo: vite },
     { name: "Parcel", logo: parcel },
-    {name: "Vercel", logo: vercel},
-    {name: "Api Integration", logo: api},
-    {name: "Testing", logo: Testing},
+    { name: "Vercel", logo: vercel },
+    { name: "Api Integration", logo: api },
+    { name: "Testing", logo: Testing },
   ];
+
+  // Split skills into two rows (6 skills each)
+  const upperRowSkills = skills.slice(0, 6);
+  const lowerRowSkills = skills.slice(6, 12);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,13 +70,59 @@ const Skills = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.2, ease: "easeOut" } },
   };
 
+  const upperControls = useAnimation();
+  const lowerControls = useAnimation();
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.3 });
+  const upperCarouselRef = useRef(null);
+  const lowerCarouselRef = useRef(null);
+
+  useEffect(() => {
+    const animationDuration = 8; // 8s for both rows, slightly slower than Projects.jsx
+
+    if (inView) {
+      // Both rows: right to left
+      upperControls.start({
+        opacity: 1,
+        x: "-50%", // Move from right to left
+        transition: {
+          opacity: { duration: 0.8 },
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: animationDuration,
+            ease: "linear",
+          },
+        },
+      });
+      lowerControls.start({
+        opacity: 1,
+        x: "-50%", // Move from right to left, same direction as upper row
+        transition: {
+          opacity: { duration: 0.8 },
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: animationDuration,
+            ease: "linear",
+          },
+        },
+      });
+    } else {
+      upperControls.start({ opacity: 0, x: 0 });
+      lowerControls.start({ opacity: 0, x: 0 });
+    }
+  }, [inView, upperControls, lowerControls]);
 
   return (
-    <div className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-12 sm:py-16 relative overflow-hidden" ref={ref}>
+    <div className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-12 sm:py-16 relative overflow-x-hidden" ref={ref}>
       <div className="overlay" />
-      <div className="container mx-auto px-6 sm:px-8 max-w-6xl">
-        <motion.div className="text-center mb-10 sm:mb-12" initial="hidden" animate={inView ? "show" : "hidden"}>
+      <div className="container mx-auto px-2 sm:px-4 overflow-x-hidden">
+        <motion.div
+          className="text-center mb-8 sm:mb-12 max-w-3xl mx-auto"
+          initial="hidden"
+          animate={inView ? "show" : "hidden"}
+          variants={containerVariants}
+        >
           <motion.h1
             className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4 relative"
             variants={headingVariants}
@@ -89,33 +139,71 @@ const Skills = () => {
           </motion.p>
         </motion.div>
 
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
-        >
-          {skills.map((skill, index) => (
-            <motion.div
-              key={index}
-              className="bg-transparent border border-gray-200 dark:border-[#00FBF4]/30 rounded-xl p-3 sm:p-4 flex flex-col items-center relative overflow-hidden"
-              variants={cardVariants}
-              whileHover="hover"
-            >
-              <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              <motion.img
-                src={skill.logo}
-                alt={`${skill.name} Logo`}
-                className="w-10 h-10 sm:w-12 sm:h-12 mb-3 relative z-10 object-contain"
-                variants={imageVariants}
+        <div className="relative overflow-x-hidden">
+          {/* Upper Row Carousel */}
+          <motion.div
+            className="flex gap-4 lg:gap-16 mb-4" // Small gap (16px) on small screens, larger gap (64px) on large screens
+            ref={upperCarouselRef}
+            animate={upperControls}
+            style={{ width: "max-content" }} // Prevent scrollbar
+          >
+            {[...upperRowSkills, ...upperRowSkills].map((skill, index) => (
+              <motion.div
+                key={`${skill.name}-${index}`}
+                className="bg-transparent border border-gray-200 dark:border-[#00FBF4]/30 rounded-xl p-3 sm:p-4 flex flex-col items-center relative overflow-hidden"
+                variants={cardVariants}
                 initial="hidden"
                 animate="show"
                 whileHover="hover"
-              />
-              <h3 className="gradient-text text-base sm:text-lg font-semibold text-center relative z-10">{skill.name}</h3>
-            </motion.div>
-          ))}
-        </motion.div>
+                style={{ minWidth: "150px", maxWidth: "200px", flex: "0 0 auto" }}
+              >
+                <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <motion.img
+                  src={skill.logo}
+                  alt={`${skill.name} Logo`}
+                  className="w-10 h-10 sm:w-12 sm:h-12 mb-3 relative z-10 object-contain"
+                  variants={imageVariants}
+                  initial="hidden"
+                  animate="show"
+                  whileHover="hover"
+                />
+                <h3 className="gradient-text text-base sm:text-lg font-semibold text-center relative z-10">{skill.name}</h3>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Lower Row Carousel */}
+          <motion.div
+            className="flex gap-4 lg:gap-16" // Small gap (16px) on small screens, larger gap (64px) on large screens
+            ref={lowerCarouselRef}
+            animate={lowerControls}
+            style={{ width: "max-content" }} // Prevent scrollbar
+          >
+            {[...lowerRowSkills, ...lowerRowSkills].map((skill, index) => (
+              <motion.div
+                key={`${skill.name}-${index}`}
+                className="bg-transparent border border-gray-200 dark:border-[#00FBF4]/30 rounded-xl p-3 sm:p-4 flex flex-col items-center relative overflow-hidden"
+                variants={cardVariants}
+                initial="hidden"
+                animate="show"
+                whileHover="hover"
+                style={{ minWidth: "150px", maxWidth: "200px", flex: "0 0 auto" }}
+              >
+                <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <motion.img
+                  src={skill.logo}
+                  alt={`${skill.name} Logo`}
+                  className="w-10 h-10 sm:w-12 sm:h-12 mb-3 relative z-10 object-contain"
+                  variants={imageVariants}
+                  initial="hidden"
+                  animate="show"
+                  whileHover="hover"
+                />
+                <h3 className="gradient-text text-base sm:text-lg font-semibold text-center relative z-10">{skill.name}</h3>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </div>
   );
