@@ -74,9 +74,13 @@ const SidebarNavbar = () => {
               <Link to="/projects" className="link">
                 Projects
               </Link>
+               <Link to="/Certifications" className="link">
+                Certifications
+              </Link>
               <Link to="/contact" className="link">
                 Contact
               </Link>
+
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-600"

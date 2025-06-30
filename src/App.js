@@ -7,8 +7,9 @@ import MyExperience from "./components/MyExperience";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import Certifications from "./components/Certifications"; // Import Certifications
 import Footer from "./components/Footer";
-import CursorBubbling from "./components/CursorBubbling"; // Import CursorBubbling
+import CursorBubbling from "./components/CursorBubbling";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import ScrollToTop from "./components/ScrollToTop";
@@ -17,7 +18,7 @@ import ScrollToTop from "./components/ScrollToTop";
 const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen relative">
-      <CursorBubbling /> {/* Add CursorBubbling canvas */}
+      <CursorBubbling />
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
@@ -43,6 +44,7 @@ function App() {
                 <MyExperience />
                 <Skills />
                 <Projects />
+                <Certifications /> {/* Add Certifications to main page */}
                 <Contact />
               </Layout>
             }
@@ -51,6 +53,7 @@ function App() {
           <Route path="/skills" element={<Layout><Skills /></Layout>} />
           <Route path="/projects" element={<Layout><Projects /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
+          <Route path="/certifications" element={<Layout><Certifications /></Layout>} /> {/* New route */}
         </Routes>
       </Router>
     </ThemeProvider>

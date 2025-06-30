@@ -4,9 +4,8 @@ import { useInView } from "react-intersection-observer";
 import Famefing from "../assets/Famefing_project_image.jpg";
 import pia from "../assets/Pia_Project.jpg";
 import newProjectImage from "../assets/Ai_resume_project.jpg";
-import ecommerce from "../assets/new-e-commerce.jpg";
+import aestheticCalculator from "../assets/calculator.jpg";
 
-// Renamed Projects array to avoid conflict with component name
 const projectsData = [
   {
     title: "Famefing.com",
@@ -18,23 +17,23 @@ const projectsData = [
   {
     title: "Piac.com.pk",
     description:
-      "A professional dummy project website. Each component was crafted using best practices and modern web development techniques.",
+      "A professional dummy project website. Each component was crafted using best practices and modern web development techniques with React.js and Tailwind CSS.",
     link: "https://mypia-hamid2312s-projects.vercel.app/",
     image: pia,
   },
   {
     title: "AI Resume Builder",
     description:
-      "A recently completed project leveraging React.js for the frontend and open APIs to create a dynamic AI-powered resume builder.",
+      "A recently completed project leveraging React.js for the frontend and open APIs to create a dynamic AI-powered resume builder with Tailwind CSS.",
     link: "https://hamid2312.github.io/AiResumeBuilder/",
     image: newProjectImage,
   },
   {
-    title: "E-Commerce Platform",
+    title: "Aesthetic Calculator",
     description:
-      "A dynamic e-commerce platform built with React.js, featuring a responsive design and integration with modern APIs.",
-    link: "https://hamid2312.github.io/AiResumeBuilder/",
-    image: ecommerce,
+      "A sleek and interactive calculator app built with React.js, featuring a modern design and smooth user experience with Tailwind CSS.",
+    link: "https://aesthetic-calculator-pink.vercel.app/",
+    image: aestheticCalculator,
   },
 ];
 
@@ -60,7 +59,7 @@ const Projects = () => {
   };
 
   const imageVariants = {
-    hover: { scale: 1.15, rotate: 5, transition: { duration: 0.5, ease: "easeInOut" } },
+    hover: { scale: 1.1, transition: { duration: 0.5, ease: "easeInOut" } }, // Removed rotate for cleaner look
   };
 
   const headingVariants = {
@@ -73,23 +72,29 @@ const Projects = () => {
     show: { opacity: 1, y: 0, transition: { duration: 1, delay: 0.3, ease: "easeOut" } },
   };
 
+  // Function to highlight technologies in description
+  const highlightTechnologies = (text) => {
+    return text.replace(
+      /\b(React\.js|React|Tailwind CSS)\b/g,
+      '<span class="font-bold text-cyan-600 dark:text-[#00FBF4]">$1</span>'
+    );
+  };
+
   const controls = useAnimation();
   const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.3 });
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    const animationDuration = 10; // 10s for all screens
-
     if (inView) {
       controls.start({
         opacity: 1,
-        x: "-50%", // Move from right to left
+        x: "-50%",
         transition: {
           opacity: { duration: 0.8 },
           x: {
             repeat: Infinity,
             repeatType: "loop",
-            duration: animationDuration,
+            duration: 10,
             ease: "linear",
           },
         },
@@ -99,32 +104,11 @@ const Projects = () => {
     }
   }, [inView, controls]);
 
-  // Handle hover to pause animation instantly
-  const handleButtonHover = () => {
-    controls.stop(); // Stop animation immediately
-  };
-
-  // Handle hover end to resume animation at original speed
-  const handleButtonLeave = () => {
-    if (inView) {
-      controls.start({
-        opacity: 1,
-        x: "-50%", // Resume right-to-left movement
-        transition: {
-          opacity: { duration: 0.8 },
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 10, // Match original duration
-            ease: "linear",
-          },
-        },
-      });
-    }
-  };
-
   return (
-    <div className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-12 sm:py-16 relative overflow-x-hidden" ref={ref}>
+    <div
+      className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-12 sm:py-16 relative overflow-x-hidden"
+      ref={ref}
+    >
       <div className="overlay" />
       <div className="container mx-auto px-2 sm:px-4 overflow-x-hidden">
         <motion.div
@@ -151,28 +135,26 @@ const Projects = () => {
 
         <div className="relative overflow-x-hidden">
           <motion.div
-            className="flex gap-4 lg:gap-16" // Small gap (16px) on small screens, larger gap (64px) on large screens to show ~3 cards
+            className="flex gap-4 sm:gap-8 lg:gap-12"
             ref={carouselRef}
             animate={controls}
-            style={{ width: "max-content" }} // Ensure carousel width is content-based to prevent scrollbar
+            style={{ width: "max-content" }}
           >
             {[...projectsData, ...projectsData].map((project, index) => (
               <motion.div
                 key={`${project.title}-${index}`}
-                className="card p-3 sm:p-4 relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg"
+                className="card p-4 relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 min-w-[200px] max-w-[280px]"
                 variants={cardVariants}
                 initial="hidden"
                 animate="show"
                 whileHover="hover"
-                style={{ minWidth: "200px", maxWidth: "250px", flex: "0 0 auto" }} // Smaller card size on mobile
-                className="card p-3 sm:p-4 relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg sm:min-w-[250px] sm:max-w-[300px]" // Responsive card width
               >
                 <div className="absolute inset-0 bg-cyan-100/10 dark:bg-[#00FBF4]/10 opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                <div className="overflow-hidden rounded-md mb-3">
+                <div className="overflow-hidden rounded-md mb-4 aspect-[4/3]">
                   <motion.img
                     src={project.image}
                     alt={`${project.title} Preview`}
-                    className="w-full h-32 sm:h-40 md:h-48 object-cover object-center relative z-10" // Responsive image height
+                    className="w-full h-full object-contain relative z-10 p-2 border-2 border-blue-500 dark:border-blue-400 rounded"
                     variants={imageVariants}
                     whileHover="hover"
                   />
@@ -182,19 +164,27 @@ const Projects = () => {
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="hover:underline" aria-label={`View ${project.title} project`}>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                    aria-label={`View ${project.title} project`}
+                  >
                     {project.title}
                   </a>
                 </motion.h3>
-                <p className="text-xs sm:text-sm text-gray-700 dark:text-white font-light mb-3 relative z-10 line-clamp-3">{project.description}</p>
+                <p
+                  className="text-xs sm:text-sm text-gray-700 dark:text-white font-light mb-4 relative z-10 line-clamp-3"
+                  dangerouslySetInnerHTML={{ __html: highlightTechnologies(project.description) }}
+                  aria-describedby={`desc-${project.title}-${index}`}
+                />
                 <a
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn text-sm text-black font-semibold hover:underline relative z-20"
+                  className="btn text-sm text-black dark:text-white font-semibold hover:underline relative z-20"
                   aria-label={`Visit ${project.title} live site`}
-                  onMouseEnter={handleButtonHover} // Pause animation instantly
-                  onMouseLeave={handleButtonLeave} // Resume animation at original speed
                 >
                   View Project
                 </a>
