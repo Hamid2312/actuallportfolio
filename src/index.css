@@ -83,3 +83,57 @@ p {
   0%, 100% { box-shadow: 0 0 15px rgba(0, 251, 244, 0.6); }
   50% { box-shadow: 0 0 25px rgba(0, 251, 244, 0.8); }
 }
+/* ELECTRIC FIELD AROUND THE IMAGE */
+.electric-field {
+  position: absolute;
+  width: 115%;
+  height: 115%;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  background: radial-gradient(circle, transparent 60%, rgba(219, 39, 119, 0.4));
+  
+  /* irregular animated outline */
+  mask: radial-gradient(circle, transparent 45%, black 46%);
+}
+
+.electric-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid #db2777;
+  filter: drop-shadow(0 0 12px #db2777);
+
+  animation: electricMorph 3.2s infinite ease-in-out;
+}
+
+/* WAVY ELECTRIC MORPHING ANIMATION */
+@keyframes electricMorph {
+  0% {
+    transform: scale(1) rotate(0deg);
+    border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%;
+    filter: drop-shadow(0 0 10px #db2777);
+  }
+
+  33% {
+    transform: scale(1.04) rotate(120deg);
+    border-radius: 50% 60% 40% 70% / 55% 45% 60% 40%;
+    filter: drop-shadow(0 0 18px #db2777);
+  }
+
+  66% {
+    transform: scale(1.02) rotate(240deg);
+    border-radius: 65% 40% 55% 45% / 60% 50% 40% 60%;
+    filter: drop-shadow(0 0 15px #db2777);
+  }
+
+  100% {
+    transform: scale(1) rotate(360deg);
+    border-radius: 55% 45% 60% 40% / 40% 60% 45% 55%;
+    filter: drop-shadow(0 0 10px #db2777);
+  }
+}

@@ -1,293 +1,148 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
 
-import facebookImage from '../assets/facebook.png';
-import githubImage from '../assets/github.png';
-import linkedinImage from '../assets/linkedin.png';
-import emailImage from '../assets/email.png';
-import whatsappImage from '../assets/whatsapp.png';
-import FiverrImage from '../assets/fiverr.png';
-import freelancerImage from '../assets/freelancer.png';
-import upworkImage from '../assets/upwork.png';
-
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', email: '', phone: '', subject: '', message: '' 
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    if (typeof window.emailjs !== 'undefined' && typeof window.emailjs.init === 'function') {
+      window.emailjs.init('RbVUdgkgNSU1oYJ2N'); // Your public key
+    }
+  }, []);
+
+  const PRIMARY_COLOR_CLASS = "text-pink-600 dark:text-pink-400";
+  const HOVER_COLOR_CLASS = "bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400";
+
+  const contactInfo = [
+    { 
+      type: "Address", 
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      ), 
+      value: "Chungi Amar Sidhu, Lahore, Pakistan"
+    },
+    { 
+      type: "Email", 
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      ), 
+      value: "hafizalig312@gmail.com", 
+      href: "mailto:hafizalig312@gmail.com"
+    },
+    { 
+      type: "Phone", 
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-3.67-1.02c-3.92-1.57-7.22-4.22-9.45-7.44l-.27-.37a6 6 0 0 1 2.37-7.9 2.06 2.06 0 0 1 1.6-.37 1 1 0 0 1 .47.1l.66.4a2 2 0 0 0 2.2 0l3.78-2.61a2 2 0 0 1 2.47.1l.66.4c.32.2.6.46.8.8.2.34.3.73.3 1.12a2 2 0 0 1-1.35 1.86l-1.63.76a2 2 0 0 0-1.07 2.03c.18 1.04.5 1.97.97 2.82l.49.88c.4.74.84 1.45 1.3 2.15l.49.88c.32.55.7 1.07 1.15 1.55l.45.45c.48.48 1.04.88 1.63 1.2a2 2 0 0 0 2.03 0l1.63-.76a2 2 0 0 1 1.86-1.35 2 2 0 0 1 1.12.3 2 2 0 0 0 1.25.75l.66.4a2 2 0 0 1 1.6.37l.47.1a2 2 0 0 1 2 2.06z"/>
+        </svg>
+      ), 
+      value: "+92 324 9462896", 
+      href: "https://wa.me/+923249462896"
+    },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, message } = formData;
+    const { name, email, message, phone, subject } = formData;
 
-    if (!name || !email || !message) return toast.error('Please fill in all fields.');
+    if (!name || !email || !message) return toast.error('Please fill in all required fields.');
     if (!validateEmail(email)) return toast.error('Please enter a valid email address.');
 
     setIsSubmitting(true);
 
-    emailjs
-      .send(
-        'service_7jpwnyd',
-        'template_nu0j2ai',
-        { name, email, message },
-        'RbVUdgkgNSU1oYJ2N'
-      )
-      .then(
-        () => {
-          toast.success('Message sent successfully!');
-          setFormData({ name: '', email: '', message: '' });
-          setIsSubmitting(false);
-        },
-        (error) => {
-          toast.error('Failed to send message: ' + error.text);
-          setIsSubmitting(false);
-        }
-      );
+    if (typeof window.emailjs === 'undefined') {
+      toast.error("Email service not initialized.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    window.emailjs.send(
+      'service_7jpwnyd',
+      'template_nu0j2ai',
+      { from_name: name, from_email: email, phone: phone || 'N/A', subject: subject || 'No Subject', message },
+      'RbVUdgkgNSU1oYJ2N'
+    ).then(
+      () => {
+        toast.success('Message sent successfully!');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setIsSubmitting(false);
+      },
+      (error) => {
+        toast.error('Failed to send message: ' + error.text);
+        setIsSubmitting(false);
+      }
+    );
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.5 },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: { duration: 0.6, ease: 'easeOut', type: 'spring', bounce: 0.4 },
-    },
-    hover: {
-      scale: 1.1,
-      boxShadow: '0 0 25px rgba(0, 251, 244, 0.4)',
-      backgroundColor: '#00FBF4',
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const imageVariants = {
-    hover: {
-      scale: 1.2,
-      rotate: 360,
-      transition: { duration: 0.8, ease: 'easeInOut' },
-    },
-  };
-
-  const inputVariants = {
-    focus: {
-      scale: 1.02,
-      borderColor: '#00B7B4',
-      boxShadow: '0 0 10px rgba(0, 183, 180, 0.5)',
-      transition: { duration: 0.3 },
-    },
-  };
-
-  const headingVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    show: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 1, ease: 'easeOut' },
-    },
-  };
-
-  const subheadingVariants = {
-    hidden: { opacity: 0, y: 30 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1, delay: 0.3, ease: 'easeOut' },
-    },
-  };
-
-  const formVariants = {
-    hidden: { opacity: 0, y: 50 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
-
-  const mapVariants = {
-    hidden: { opacity: 0, y: 50 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1, ease: 'easeOut' },
-    },
-  };
-
-  const { ref: titleRef, inView: titleInView } = useInView({ threshold: 0.3 });
-  const { ref: formRef, inView: formInView } = useInView({ threshold: 0.3 });
-  const { ref: cardsRef, inView: cardsInView } = useInView({ threshold: 0.3 });
-  const { ref: mapRef, inView: mapInView } = useInView({ threshold: 0.3 });
+  const { ref: sectionRef, inView: sectionInView } = useInView({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <div className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-16 sm:py-20 relative overflow-hidden">
+    <div className="bg-pink-50 dark:bg-[#120312] py-16 sm:py-20 relative overflow-hidden" ref={sectionRef}>
       <Toaster position="top-right" />
-      <div className="container mx-auto px-6 sm:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          
+          {/* LEFT COLUMN */}
+          <motion.div initial={{ opacity: 0 }} animate={sectionInView ? { opacity: 1 } : {}}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-gray-900 dark:text-white">Contact Info</h1>
+            <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-light mb-12">
+              Have any questions or want to collaborate? I'm eager to hear from you.
+            </p>
+            {contactInfo.map((item, idx) => (
+              <div key={idx} className="flex items-start mb-8 gap-4">
+                <div className={`p-3 rounded-full ${PRIMARY_COLOR_CLASS} border border-pink-200 dark:border-pink-800 flex-shrink-0`}>
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{item.type}</h3>
+                  <a href={item.href || '#'} target="_blank" rel="noopener noreferrer" className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-200">
+                    {item.value}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </motion.div>
 
-        {/* Heading */}
-        <motion.div
-          className="text-center mb-12 sm:mb-16"
-          ref={titleRef}
-          initial="hidden"
-          animate={titleInView ? 'show' : 'hidden'}
-        >
-          <motion.h1
-            className="gradient-text text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 relative"
-            variants={headingVariants}
-            whileHover={{ scale: 1.05 }}
-          >
-            Get in Touch
-            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-cyan-600 dark:bg-[#00FBF4] rounded-full" />
-          </motion.h1>
-          <motion.p
-            className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-white font-light max-w-2xl mx-auto"
-            variants={subheadingVariants}
-          >
-            Have any questions or want to work together? Reach out via the form or through any platform below.
-          </motion.p>
-        </motion.div>
-
-        {/* Form */}
-        <motion.form
-          onSubmit={handleSubmit}
-          className="card p-4 sm:p-6 max-w-3xl mx-auto mb-12 sm:mb-16"
-          ref={formRef}
-          variants={formVariants}
-          initial="hidden"
-          animate={formInView ? 'show' : 'hidden'}
-        >
-          <h2 className="gradient-text text-2xl sm:text-3xl font-bold mb-6 text-center">Send a Message</h2>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white mb-2">Your Name</label>
-            <motion.input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none"
-              placeholder="Enter your name"
-              required
-              whileFocus="focus"
-              variants={inputVariants}
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white mb-2">Your Email</label>
-            <motion.input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none"
-              placeholder="Enter your email"
-              required
-              whileFocus="focus"
-              variants={inputVariants}
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="message" className="block text-sm sm:text-lg font-medium text-gray-900 dark:text-white mb-2">Your Message</label>
-            <motion.textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-[#00FBF4]/50 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none"
-              placeholder="Type your message here"
-              rows="4"
-              required
-              whileFocus="focus"
-              variants={inputVariants}
-            />
-          </div>
-          <motion.button
-            type="submit"
-            disabled={isSubmitting}
-            className={`btn w-full ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-            whileHover={!isSubmitting && { scale: 1.05 }}
-            whileTap={!isSubmitting && { scale: 0.95 }}
-          >
-            {isSubmitting ? 'Sending...' : 'Submit'}
-          </motion.button>
-        </motion.form>
-
-        {/* Contact Cards */}
-        <motion.div
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 mb-16"
-          ref={cardsRef}
-          variants={containerVariants}
-          initial="hidden"
-          animate={cardsInView ? 'show' : 'hidden'}
-        >
-          {[
-            { href: 'https://www.facebook.com/share/15qYWfs8hM/', image: facebookImage, alt: 'Facebook', text: 'Facebook' },
-            { href: 'https://github.com/Hamid2312', image: githubImage, alt: 'GitHub', text: 'GitHub' },
-            { href: 'https://www.linkedin.com/in/hafiz-hamid-b40795336', image: linkedinImage, alt: 'LinkedIn', text: 'LinkedIn' },
-            { href: 'mailto:hafizalig312@gmail.com', image: emailImage, alt: 'Email', text: 'Email' },
-            { href: 'https://wa.me/+923249462896', image: whatsappImage, alt: 'WhatsApp', text: 'WhatsApp' },
-            { href: 'https://www.fiverr.com/devhafizhamid', image: FiverrImage, alt: 'Fiverr', text: 'Fiverr' },
-            { href: 'https://www.freelancer.com/u/hamid2312', image: freelancerImage, alt: 'Freelancer', text: 'Freelancer' },
-            { href: 'https://www.upwork.com/freelancers/~01a682e1d9f5f13336', image: upworkImage, alt: 'Upwork', text: 'Upwork' },
-          ].map((item, idx) => (
-            <motion.a
-              key={idx}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              variants={cardVariants}
-              whileHover="hover"
-              className="flex flex-col items-center justify-center p-6 rounded-2xl bg-white/80 dark:bg-white/10 backdrop-blur shadow-md border border-gray-200 dark:border-white/10 hover:shadow-xl transition-all duration-300 group"
-            >
-              <motion.div
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-cyan-500 dark:border-[#00FBF4] flex items-center justify-center mb-4 bg-white dark:bg-gray-900"
-                variants={imageVariants}
-                whileHover="hover"
-              >
-                <img src={item.image} alt={item.alt} className="w-8 h-8 sm:w-10 sm:h-10 object-contain" />
-              </motion.div>
-              <span className="text-sm sm:text-base font-medium text-gray-800 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-[#00FBF4]">
-                {item.text}
-              </span>
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* Location Map */}
-        <motion.div
-          className="mb-12"
-          ref={mapRef}
-          variants={mapVariants}
-          initial="hidden"
-          animate={mapInView ? 'show' : 'hidden'}
-        >
-          <h2 className="gradient-text text-2xl sm:text-3xl font-bold text-center mb-6">Location</h2>
-          <motion.iframe
-            title="Chungi Amer Sidhu Lahore"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13699.017635739825!2d74.30802083228114!3d31.54083235020181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391907405303089f%3A0x809e59a3e7899ee2!2sChungi%20Amar%20Sidhu%2C%20Lahore%2C%20Punjab!5e0!3m2!1sen!2s!4v1691778740163!5m2!1sen!2s"
-            width="100%"
-            height="400"
-            className="border-2 border-gray-300 dark:border-[#00FBF4]/50 rounded-xl"
-            loading="lazy"
-          />
-        </motion.div>
+          {/* RIGHT COLUMN */}
+          <motion.form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name*" required
+                className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500" />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email*" required
+                className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Phone"
+                className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500" />
+              <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject"
+                className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500" />
+            </div>
+            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Message..." rows="6" required
+              className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500 mb-6" />
+            <button type="submit" disabled={isSubmitting} className={`flex items-center justify-center gap-2 px-8 py-3 rounded-full text-white font-semibold transition-all duration-300 shadow-md ${isSubmitting ? 'opacity-50 cursor-not-allowed bg-pink-500' : HOVER_COLOR_CLASS}`}>
+              {isSubmitting ? 'Sending...' : 'Free Consultation'}
+            </button>
+          </motion.form>
+        </div>
       </div>
     </div>
   );

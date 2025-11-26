@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { motion, AnimatePresence } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
-import Famefing from "../assets/Famefing_project_image.jpg";
-import pia from "../assets/Pia_Project.jpg";
-import newProjectImage from "../assets/Ai_resume_project.jpg";
-import aestheticCalculator from "../assets/calculator.jpg";
+import Famefing from "../assets/famefing.png";
+import pia from "../assets/mypia.png";
+import newProjectImage from "../assets/index.png";
+import aestheticCalculator from "../assets/noor-e-nisa.png";
 
 const projectsData = [
   {
@@ -24,16 +23,16 @@ const projectsData = [
     image: pia,
   },
   {
-    title: "AI Resume Builder",
+    title: "Client's website",
     description:
-      "A recently completed project leveraging React.js for the frontend and open APIs to create a dynamic AI-powered resume builder with Tailwind CSS.",
+      "A recently completed project leveraging React.js for the frontend and open APIs to create a dynamic AI-powered website with Tailwind CSS.",
     link: "https://hamid2312.github.io/AiResumeBuilder/",
     image: newProjectImage,
   },
   {
-    title: "Aesthetic Calculator",
+    title: "Noor e Nisa",
     description:
-      "A sleek and interactive calculator app built with React.js, featuring a modern design and smooth user experience with Tailwind CSS.",
+      "A full E-commerce Noor e Nisa project built with React.js, featuring a modern design and smooth user experience with Tailwind CSS.",
     link: "https://aesthetic-calculator-pink.vercel.app/",
     image: aestheticCalculator,
   },
@@ -41,140 +40,185 @@ const projectsData = [
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const controls = useAnimation();
-  const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.3 });
-  const carouselRef = useRef(null);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    if (inView) {
-      controls.start({
-        opacity: 1,
-        x: "-50%",
-        transition: {
-          opacity: { duration: 0.8 },
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 6, // Faster scroll
-            ease: "linear",
-          },
-        },
-      });
-    } else {
-      controls.start({ opacity: 0, x: 0 });
-    }
-  }, [inView, controls]);
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 640);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const highlightTechnologies = (text) => {
     return text.replace(
       /\b(React\.js|React|Tailwind CSS)\b/g,
-      '<span class="font-bold text-cyan-600 dark:text-[#00FBF4]">$1</span>'
+      '<span class="font-bold text-pink-600 dark:text-pink-400">$1</span>'
     );
   };
 
+  const containerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+    hover: { scale: 1.02, y: -2, boxShadow: "0 25px 50px -12px rgba(236, 72, 153, 0.25)", transition: { duration: 0.3, ease: "easeOut" } }, 
+  };
+
+  const CardWrapper = ({ children, isLargeScreen }) => {
+    if (isLargeScreen) {
+      return (
+        <Tilt glareEnable={true} glareMaxOpacity={0.2} tiltMaxAngleX={10} tiltMaxAngleY={10}>
+          {children}
+        </Tilt>
+      );
+    }
+    return <>{children}</>;
+  };
+
   return (
-    <div
-      className="bg-gradient-to-br from-white to-gray-100 dark:from-black dark:to-gray-900 py-12 sm:py-16 relative overflow-x-hidden"
-      ref={ref}
-    >
-      <div className="container mx-auto px-2 sm:px-4">
-        <motion.div
-          className="text-center mb-8 sm:mb-12 max-w-3xl mx-auto"
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
+    <section className="relative bg-pink-50 dark:bg-[#120312] py-16 px-4 sm:px-6 lg:px-12 overflow-hidden">
+      <div className="max-w-6xl mx-auto text-center mb-12">
+        <motion.h2
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-3 tracking-tight"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
         >
-          <motion.h1
-            className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 relative"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-          >
-            My Projects
-            <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-cyan-600 dark:bg-[#00FBF4] rounded-full" />
-          </motion.h1>
-          <motion.p
-            className="text-sm sm:text-base lg:text-lg text-gray-700 dark:text-white font-light max-w-xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            A showcase of my professional projects built with modern web technologies.
-          </motion.p>
-        </motion.div>
+          My Projects
+          <span className="ml-2 text-pink-600 dark:text-pink-400">/</span>
+        </motion.h2>
+        <motion.p
+          className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+        >
+          A showcase of my professional projects built with modern web technologies.
+        </motion.p>
+      </div>
 
-        <div className="relative overflow-x-hidden">
-          <motion.div
-            className="flex gap-4 sm:gap-8 lg:gap-12"
-            ref={carouselRef}
-            animate={controls}
-            style={{ width: "max-content" }}
-          >
-            {[...projectsData, ...projectsData].map((project, index) => (
-              <Tilt key={`${project.title}-${index}`} glareEnable={true} glareMaxOpacity={0.2}>
-                <motion.div
-                  onClick={() => setSelectedProject(project)}
-                  className="cursor-pointer p-4 relative bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 min-w-[220px] max-w-[280px] hover:scale-105 transition-transform"
-                >
-                  <div className="overflow-hidden rounded mb-4 aspect-[4/3]">
-                    <img
-                      src={project.image}
-                      alt={`${project.title} Preview`}
-                      className="w-full h-full object-contain border border-blue-400 p-2 rounded"
-                    />
-                  </div>
-                  <h3 className="gradient-text text-base font-bold mb-2">
-                    {project.title}
-                  </h3>
-                  <p
-                    className="text-sm text-gray-700 dark:text-white font-light line-clamp-3"
-                    dangerouslySetInnerHTML={{ __html: highlightTechnologies(project.description) }}
-                  />
-                </motion.div>
-              </Tilt>
-            ))}
-          </motion.div>
-        </div>
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        {projectsData.map((project, index) => (
+          <CardWrapper key={project.title} isLargeScreen={isLargeScreen}>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-pink-300/40 dark:hover:shadow-pink-900/40 border border-pink-100/30 hover:border-pink-300 dark:hover:border-pink-600 transition-all duration-300 flex flex-col"
+            >
+              {/* Image Container: Ensure aspect ratio for consistent height and use object-cover */}
+              <div 
+                onClick={() => setSelectedProject(project)} 
+                // Adjusted aspect ratio to be more rectangular (16:9) to better fit common screen sizes
+                // Removed bg-gray-100 as object-cover will fill it
+                className="overflow-hidden rounded-t-2xl aspect-video flex items-center justify-center cursor-pointer"
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  // FIX: Use object-cover to make the image fill the container completely
+                  // and remove padding as it's not needed with object-cover
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              
+              <div className="p-4 flex flex-col flex-grow">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
+                <p
+                  className="text-gray-700 dark:text-gray-300 text-sm line-clamp-4 flex-grow mb-4"
+                  dangerouslySetInnerHTML={{ __html: highlightTechnologies(project.description) }}
+                />
+                
+                <div className="mt-auto flex justify-between gap-2">
+                    <button
+                        onClick={() => setSelectedProject(project)}
+                        className="flex-1 px-3 py-1.5 text-xs bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-200 rounded-full hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-200"
+                    >
+                        View Details
+                    </button>
+                    <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 text-center px-3 py-1.5 text-xs bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-200"
+                    >
+                        Visit Live
+                    </a>
+                </div>
+              </div>
+            </motion.div>
+          </CardWrapper>
+        ))}
+      </motion.div>
 
+      {/* Modal component remains fully responsive */}
+      <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4 py-6 sm:px-6">
-            <div className="bg-white dark:bg-gray-900 rounded-lg max-w-2xl w-full overflow-y-auto max-h-[90vh] relative p-4 shadow-xl">
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center px-4 sm:px-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-3xl overflow-y-auto max-h-[90vh] p-6 relative shadow-2xl"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-2 right-2 text-gray-700 dark:text-gray-300 hover:text-red-500 text-xl sm:text-2xl"
-                aria-label="Close modal"
+                className="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 text-2xl sm:text-3xl z-10"
               >
                 &times;
               </button>
 
               <img
                 src={selectedProject.image}
-                alt={`${selectedProject.title} Preview`}
-                className="w-full h-auto rounded mb-4"
+                alt={selectedProject.title}
+                // FIX: Use object-cover for modal image as well
+                className="w-full h-auto rounded-lg mb-4 border border-pink-200 dark:border-pink-600 object-cover bg-gray-100 dark:bg-gray-800 p-0" // Removed p-2
               />
-              <h2 className="text-lg sm:text-xl font-bold mb-2 gradient-text">
-                {selectedProject.title}
-              </h2>
+              <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{selectedProject.title}</h2>
               <p
-                className="text-sm sm:text-base text-gray-800 dark:text-gray-100 mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: highlightTechnologies(selectedProject.description),
-                }}
+                className="text-gray-700 dark:text-gray-300 text-sm sm:text-base mb-6"
+                dangerouslySetInnerHTML={{ __html: highlightTechnologies(selectedProject.description) }}
               />
-              <div className="text-center">
+              <div className="flex justify-center gap-4">
                 <a
                   href={selectedProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 mt-2 bg-cyan-600 text-white rounded hover:bg-cyan-700 transition"
+                  className="inline-block px-6 py-2 bg-pink-600 dark:bg-pink-400 text-white dark:text-gray-900 rounded-full hover:bg-pink-700 dark:hover:bg-pink-300 transition-all duration-300 font-semibold"
                 >
                   Visit Project
                 </a>
+                <button
+                    onClick={() => setSelectedProject(null)}
+                    className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
+                >
+                    Close
+                </button>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </div>
-    </div>
+      </AnimatePresence>
+    </section>
   );
 };
 
