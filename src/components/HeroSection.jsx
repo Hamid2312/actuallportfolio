@@ -71,7 +71,7 @@ const HeroSection = () => {
 
           {/* SOCIAL ICONS */}
           <div className="flex items-center gap-4 mb-6">
-            {[ 
+            {[
               { icon: <FaGithub />, link: "https://github.com/" },
               { icon: <FaLinkedin />, link: "https://linkedin.com/" },
               { icon: <FaFacebook />, link: "https://facebook.com/" },
@@ -121,7 +121,7 @@ const HeroSection = () => {
           <div className="block sm:hidden h-16"></div>
         </motion.div>
 
-        {/* RIGHT IMAGE WITH CIRCULAR ELECTRIC AURA */}
+        {/* RIGHT IMAGE WITH 3D RING */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -129,16 +129,17 @@ const HeroSection = () => {
           className="relative w-full lg:w-[35%] flex justify-center items-center mt-8 sm:mt-12 lg:mt-0"
         >
           <div className="relative w-[220px] sm:w-[260px] md:w-[300px] lg:w-[380px] h-[320px] flex justify-center items-center">
-            {/* ⚡ Circular Electric Aura */}
-            <div className="electric-field">
-              {Array.from({ length: 20 }).map((_, i) => {
-                const angle = (360 / 20) * i;
+
+            {/* 🌸 3D Pink Surround Animation */}
+            <div className="threeD-ring">
+              {Array.from({ length: 40 }).map((_, i) => {
+                const angle = (360 / 40) * i;
                 return (
                   <div
                     key={i}
-                    className="electric-line"
+                    className="ring-dot"
                     style={{
-                      transform: `rotate(${angle}deg) translate(0, -140px)`,
+                      transform: `rotateY(${angle}deg) translateZ(150px)`,
                     }}
                   />
                 );
@@ -148,57 +149,51 @@ const HeroSection = () => {
             <img
               src={heroImg}
               alt="Hamid Ali"
-              className="relative z-20 w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain drop-shadow-[0_0_25px_#db2777] pt-20"
+              className="relative z-20 w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain drop-shadow-[0_0_25px_#db2777] sm:pt-4 md:pt-10 lg:pt-20"
               style={{ objectPosition: objPos }}
             />
           </div>
         </motion.div>
       </div>
 
-      {/* ⚡ Electric Aura CSS */}
+      {/* 🌸 3D RING CSS */}
       <style>{`
-  .electric-field {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 12;
-  }
+        .threeD-ring {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 50%;
+          left: 50%;
+          transform-style: preserve-3d;
+          transform: translate(-50%, -50%) rotateX(20deg);
+          pointer-events: none;
+          z-index: 18;
+        }
 
-  .electric-line {
-    position: absolute;
-    width: 4px;
-    height: 20px;
-    background: linear-gradient(to top, #db2777, transparent);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform-origin: bottom center;
-    animation: flicker 0.15s infinite alternate;
-  }
+        .ring-dot {
+          position: absolute;
+          width: 12px;
+          height: 12px;
+          background: #db2777;
+          border-radius: 50%;
+          box-shadow: 0 0 12px #db2777;
+          animation: pulse 1.6s infinite ease-in-out;
+        }
 
-  @keyframes flicker {
-    0% { opacity: 0.2; transform: scaleY(0.5); }
-    100% { opacity: 1; transform: scaleY(1.2); }
-  }
+        @keyframes pulse {
+          0% { transform: scale(0.8); opacity: 0.5; }
+          50% { transform: scale(1.3); opacity: 1; }
+          100% { transform: scale(0.8); opacity: 0.5; }
+        }
 
-  /* MOBILE RESPONSIVE FIXES */
-  @media (max-width: 480px) {
-    .electric-field { width: 95%; height: 95%; }
-    .electric-line { height: 15px; }
-  }
+        @media (max-width: 480px) {
+          .threeD-ring { transform: translate(-50%, -50%) rotateX(25deg) scale(0.8); }
+        }
 
-  @media (max-width: 768px) {
-    .electric-field { width: 110%; height: 110%; }
-  }
-
-  @media (max-width: 900px) {
-    .electric-field { width: 120%; height: 120%; }
-  }
-`}</style>
+        @media (max-width: 768px) {
+          .threeD-ring { transform: translate(-50%, -50%) rotateX(20deg) scale(0.9); }
+        }
+      `}</style>
     </section>
   );
 };
