@@ -7,7 +7,9 @@ import heroImg from "../assets/HamidImage2.png";
 
 const HeroSection = () => {
   const [objPos, setObjPos] = useState("50% 20%");
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
+  // Responsive object position
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
@@ -20,6 +22,17 @@ const HeroSection = () => {
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // Mouse parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      setMousePos({ x, y });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -83,15 +96,7 @@ const HeroSection = () => {
                 href={item.link}
                 target="_blank"
                 rel="noreferrer"
-                className="
-                  text-[28px] 
-                  text-gray-700 dark:text-gray-200 
-                  transition-all duration-300
-                  hover:text-pink-600 
-                  hover:scale-125 
-                  hover:-translate-y-1
-                  hover:drop-shadow-[0_0_20px_#db2777]
-                "
+                className="text-[28px] text-gray-700 dark:text-gray-200 transition-all duration-300 hover:text-pink-600 hover:scale-125 hover:-translate-y-1 hover:drop-shadow-[0_0_20px_#db2777]"
               >
                 {item.icon}
               </a>
@@ -117,7 +122,6 @@ const HeroSection = () => {
             </a>
           </div>
 
-          {/* Extra spacing on mobile */}
           <div className="block sm:hidden h-16"></div>
         </motion.div>
 
@@ -129,9 +133,14 @@ const HeroSection = () => {
           className="relative w-full lg:w-[35%] flex justify-center items-center mt-8 sm:mt-12 lg:mt-0"
         >
           <div className="relative w-[220px] sm:w-[260px] md:w-[300px] lg:w-[380px] h-[320px] flex justify-center items-center">
-
-            {/* 🌸 3D Pink Surround Animation */}
-            <div className="threeD-ring">
+            
+            {/* 🌸 3D Pink Surround Ring */}
+            <div
+              className="threeD-ring"
+              style={{
+                transform: `translate(-50%, -50%) rotateX(${mousePos.y}deg) rotateY(${mousePos.x}deg)`,
+              }}
+            >
               {Array.from({ length: 40 }).map((_, i) => {
                 const angle = (360 / 40) * i;
                 return (
@@ -146,6 +155,36 @@ const HeroSection = () => {
               })}
             </div>
 
+            {/* Floating Particles */}
+            {Array.from({ length: 50 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="floating-dot"
+                animate={{
+                  x: [0, 10, -10, 0],
+                  y: [0, 15, -15, 0],
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 10 + Math.random() * 10,
+                  repeat: Infinity,
+                  repeatType: "mirror",
+                  ease: "easeInOut",
+                }}
+                style={{
+                  position: "absolute",
+                  width: "8px",
+                  height: "8px",
+                  background: "#db2777",
+                  borderRadius: "50%",
+                  boxShadow: "0 0 15px #db2777",
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  zIndex: 15,
+                }}
+              />
+            ))}
+
             <img
               src={heroImg}
               alt="Hamid Ali"
@@ -156,7 +195,7 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* 🌸 3D RING CSS */}
+      {/* 🌸 3D RING + PARTICLE CSS */}
       <style>{`
         .threeD-ring {
           position: absolute;
@@ -165,9 +204,9 @@ const HeroSection = () => {
           top: 50%;
           left: 50%;
           transform-style: preserve-3d;
-          transform: translate(-50%, -50%) rotateX(20deg);
           pointer-events: none;
           z-index: 18;
+          animation: rotateRing 20s linear infinite;
         }
 
         .ring-dot {
@@ -184,6 +223,11 @@ const HeroSection = () => {
           0% { transform: scale(0.8); opacity: 0.5; }
           50% { transform: scale(1.3); opacity: 1; }
           100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        @keyframes rotateRing {
+          0% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(0deg); }
+          100% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(360deg); }
         }
 
         @media (max-width: 480px) {
