@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 
 import Famefing from "../assets/famefing.png";
 import pia from "../assets/mypia.png";
-import newProjectImage from "../assets/index.png";
+import personalGrowthImage from "../assets/Personal_Growth.png";
 import aestheticCalculator from "../assets/noor-e-nisa.png";
 
 const projectsData = [
@@ -23,17 +23,17 @@ const projectsData = [
     image: pia,
   },
   {
-    title: "Client's website",
+    title: "Personal Growth OS",
     description:
-      "A recently completed project leveraging React.js for the frontend and open APIs to create a dynamic AI-powered website with Tailwind CSS.",
-    link: "https://hamid2312.github.io/AiResumeBuilder/",
-    image: newProjectImage,
+      "A comprehensive SaaS lifestyle and productivity platform. Features a unified dashboard, habit tracking, and custom analytics. Built with React.js, Tailwind CSS, Supabase, and Recharts.",
+    link: "https://day-stack-nine.vercel.app/",
+    image: personalGrowthImage,
   },
   {
     title: "Noor e Nisa",
     description:
       "A full E-commerce Noor e Nisa project built with React.js, featuring a modern design and smooth user experience with Tailwind CSS.",
-    link: "https://aesthetic-calculator-pink.vercel.app/",
+    link: "https://noor-e-nisa.vercel.app/",
     image: aestheticCalculator,
   },
 ];
@@ -70,7 +70,7 @@ const Projects = () => {
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
     show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
-    hover: { scale: 1.02, y: -2, boxShadow: "0 25px 50px -12px rgba(236, 72, 153, 0.25)", transition: { duration: 0.3, ease: "easeOut" } }, 
+    hover: { scale: 1.02, y: -2, boxShadow: "0 25px 50px -12px rgba(236, 72, 153, 0.25)", transition: { duration: 0.3, ease: "easeOut" } },
   };
 
   const CardWrapper = ({ children, isLargeScreen }) => {
@@ -120,8 +120,8 @@ const Projects = () => {
               className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-pink-300/40 dark:hover:shadow-pink-900/40 border border-pink-100/30 hover:border-pink-300 dark:hover:border-pink-600 transition-all duration-300 flex flex-col"
             >
               {/* Image Container: Ensure aspect ratio for consistent height and use object-cover */}
-              <div 
-                onClick={() => setSelectedProject(project)} 
+              <div
+                onClick={() => setSelectedProject(project)}
                 // Adjusted aspect ratio to be more rectangular (16:9) to better fit common screen sizes
                 // Removed bg-gray-100 as object-cover will fill it
                 className="overflow-hidden rounded-t-2xl aspect-video flex items-center justify-center cursor-pointer"
@@ -134,29 +134,29 @@ const Projects = () => {
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              
+
               <div className="p-4 flex flex-col flex-grow">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{project.title}</h3>
                 <p
                   className="text-gray-700 dark:text-gray-300 text-sm line-clamp-4 flex-grow mb-4"
                   dangerouslySetInnerHTML={{ __html: highlightTechnologies(project.description) }}
                 />
-                
+
                 <div className="mt-auto flex justify-between gap-2">
-                    <button
-                        onClick={() => setSelectedProject(project)}
-                        className="flex-1 px-3 py-1.5 text-xs bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-200 rounded-full hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-200"
-                    >
-                        View Details
-                    </button>
-                    <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 text-center px-3 py-1.5 text-xs bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-200"
-                    >
-                        Visit Live
-                    </a>
+                  <button
+                    onClick={() => setSelectedProject(project)}
+                    className="flex-1 px-3 py-1.5 text-xs bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-200 rounded-full hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-200"
+                  >
+                    View Details
+                  </button>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center px-3 py-1.5 text-xs bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-200"
+                  >
+                    Visit Live
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -208,10 +208,10 @@ const Projects = () => {
                   Visit Project
                 </a>
                 <button
-                    onClick={() => setSelectedProject(null)}
-                    className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
+                  onClick={() => setSelectedProject(null)}
+                  className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300"
                 >
-                    Close
+                  Close
                 </button>
               </div>
             </motion.div>

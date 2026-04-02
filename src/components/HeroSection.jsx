@@ -7,7 +7,6 @@ import heroImg from "../assets/HamidImage2.png";
 
 const HeroSection = () => {
   const [objPos, setObjPos] = useState("50% 20%");
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Responsive object position
   useEffect(() => {
@@ -24,16 +23,6 @@ const HeroSection = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Mouse parallax effect
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      setMousePos({ x, y });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   return (
     <section className="w-full bg-[#F7F7F7] pt-24 sm:pt-28 md:pt-32 pb-10 md:pb-16 lg:pb-24 relative overflow-hidden dark:bg-[#000]">
@@ -132,27 +121,19 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className="relative w-full lg:w-[35%] flex justify-center items-center mt-8 sm:mt-12 lg:mt-0"
         >
-          <div className="relative w-[220px] sm:w-[260px] md:w-[300px] lg:w-[380px] h-[320px] flex justify-center items-center">
+          <div 
+            className="relative w-[220px] sm:w-[260px] md:w-[300px] lg:w-[380px] h-[320px] flex justify-center items-center"
+            style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
+          >
             
-            {/* 🌸 3D Pink Surround Ring */}
-            <div
-              className="threeD-ring"
-              style={{
-                transform: `translate(-50%, -50%) rotateX(${mousePos.y}deg) rotateY(${mousePos.x}deg)`,
-              }}
+            {/* ⚡ 3D Electric Rings */}
+            <div 
+              className="absolute w-[120%] h-[120%] top-[-10%] left-[-10%] pointer-events-none" 
+              style={{ transformStyle: "preserve-3d" }}
             >
-              {Array.from({ length: 40 }).map((_, i) => {
-                const angle = (360 / 40) * i;
-                return (
-                  <div
-                    key={i}
-                    className="ring-dot"
-                    style={{
-                      transform: `rotateY(${angle}deg) translateZ(150px)`,
-                    }}
-                  />
-                );
-              })}
+              <div className="electric-ring ring-1"></div>
+              <div className="electric-ring ring-2"></div>
+              <div className="electric-ring ring-3"></div>
             </div>
 
             {/* Floating Particles */}
@@ -188,54 +169,50 @@ const HeroSection = () => {
             <img
               src={heroImg}
               alt="Hamid Ali"
-              className="relative z-20 w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain drop-shadow-[0_0_25px_#db2777] sm:pt-4 md:pt-10 lg:pt-20"
-              style={{ objectPosition: objPos }}
+              className="relative w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain drop-shadow-[0_0_25px_#db2777] sm:pt-4 md:pt-10 lg:pt-20"
+              style={{ objectPosition: objPos, transform: "translateZ(1px)" }}
             />
           </div>
         </motion.div>
       </div>
 
-      {/* 🌸 3D RING + PARTICLE CSS */}
+      {/* ⚡ 3D ELECTRIC RING + PARTICLE CSS */}
       <style>{`
-        .threeD-ring {
+        .electric-ring {
           position: absolute;
           width: 100%;
           height: 100%;
-          top: 50%;
-          left: 50%;
-          transform-style: preserve-3d;
-          pointer-events: none;
-          z-index: 18;
-          animation: rotateRing 20s linear infinite;
-        }
-
-        .ring-dot {
-          position: absolute;
-          width: 12px;
-          height: 12px;
-          background: #db2777;
           border-radius: 50%;
-          box-shadow: 0 0 12px #db2777;
-          animation: pulse 1.6s infinite ease-in-out;
+          border: 4px solid transparent;
+          filter: drop-shadow(0 0 12px #db2777) drop-shadow(0 0 4px #db2777);
+        }
+        .ring-1 {
+          border-top: 4px solid #db2777;
+          border-right: 4px solid #db2777;
+          animation: orbit1 3s linear infinite;
+        }
+        .ring-2 {
+          border-bottom: 4px solid #db2777;
+          border-left: 4px solid #db2777;
+          animation: orbit2 4s linear infinite;
+        }
+        .ring-3 {
+          border-top: 4px solid #db2777;
+          border-left: 4px solid #db2777;
+          animation: orbit3 5s linear infinite;
         }
 
-        @keyframes pulse {
-          0% { transform: scale(0.8); opacity: 0.5; }
-          50% { transform: scale(1.3); opacity: 1; }
-          100% { transform: scale(0.8); opacity: 0.5; }
+        @keyframes orbit1 {
+          0% { transform: rotateX(65deg) rotateY(35deg) rotateZ(0deg); }
+          100% { transform: rotateX(65deg) rotateY(35deg) rotateZ(360deg); }
         }
-
-        @keyframes rotateRing {
-          0% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(0deg); }
-          100% { transform: translate(-50%, -50%) rotateX(20deg) rotateY(360deg); }
+        @keyframes orbit2 {
+          0% { transform: rotateX(35deg) rotateY(65deg) rotateZ(0deg); }
+          100% { transform: rotateX(35deg) rotateY(65deg) rotateZ(360deg); }
         }
-
-        @media (max-width: 480px) {
-          .threeD-ring { transform: translate(-50%, -50%) rotateX(25deg) scale(0.8); }
-        }
-
-        @media (max-width: 768px) {
-          .threeD-ring { transform: translate(-50%, -50%) rotateX(20deg) scale(0.9); }
+        @keyframes orbit3 {
+          0% { transform: rotateX(75deg) rotateY(0deg) rotateZ(0deg); }
+          100% { transform: rotateX(75deg) rotateY(0deg) rotateZ(360deg); }
         }
       `}</style>
     </section>
