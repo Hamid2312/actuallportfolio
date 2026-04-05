@@ -1,12 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeContext } from "../context/ThemeContext.jsx";
+
 import cert1 from "../assets/cert1.jpg";
 import cert2 from "../assets/cert2.jpg";
 import cert3 from "../assets/cert3.jpg";
 
 const Certifications = () => {
-  const { theme } = useContext(ThemeContext);
+
   const [showCerts, setShowCerts] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
 

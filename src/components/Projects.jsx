@@ -112,7 +112,7 @@ const Projects = () => {
         initial="hidden"
         animate="show"
       >
-        {projectsData.map((project, index) => (
+        {projectsData.map((project) => (
           <CardWrapper key={project.title} isLargeScreen={isLargeScreen}>
             <motion.div
               variants={cardVariants}

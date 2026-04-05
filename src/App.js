@@ -118,10 +118,9 @@ function App() {
             path="/certifications"
             element={
               <Layout>
-               <AnimatedSection delay={0} disableY>
-  <HeroSection />
-</AnimatedSection>
-
+                <AnimatedSection delay={0}>
+                  <Certifications />
+                </AnimatedSection>
               </Layout>
             }
           />

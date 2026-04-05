@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiReact, SiGit, SiGithub,
@@ -8,7 +8,7 @@ import {
 
 const Skills = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const cardRefs = useRef([]);
+
 
   const skills = [
     { name: "HTML", Icon: SiHtml5, short: "Markup • Semantic", extra: "Forms, Accessibility, SEO‑friendly" },
@@ -59,7 +59,7 @@ const Skills = () => {
             return (
               <div
                 key={s.name}
-                ref={(el) => (cardRefs.current[idx] = el)}
+
                 className="relative flex flex-col items-center"
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
