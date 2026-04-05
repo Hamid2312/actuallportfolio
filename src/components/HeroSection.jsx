@@ -40,16 +40,16 @@ const HeroSection = () => {
           </p>
 
           <h2 className="text-[22px] sm:text-[26px] md:text-[28px] font-medium text-gray-700 dark:text-gray-100 leading-tight">
-            Hi, I’m
+            Hi, I'm
           </h2>
 
           <h1 className="text-[34px] sm:text-[44px] md:text-[56px] lg:text-[64px] font-extrabold text-[#1E1E1E] dark:text-white leading-none mt-1">
-            Hamid <span className="text-pink-600">Ali</span>
+            Hamid <span className="text-primary-600">Ali</span>
           </h1>
 
           <h3 className="text-[18px] sm:text-[22px] md:text-[26px] font-semibold text-gray-700 dark:text-gray-200 mt-3 mb-5">
             a{" "}
-            <span className="text-pink-600">
+            <span className="text-primary-600">
               <Typewriter
                 words={[
                   "Frontend Developer",
@@ -85,7 +85,7 @@ const HeroSection = () => {
                 href={item.link}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[28px] text-gray-700 dark:text-gray-200 transition-all duration-300 hover:text-pink-600 hover:scale-125 hover:-translate-y-1 hover:drop-shadow-[0_0_20px_#db2777]"
+                className="text-[28px] text-gray-700 dark:text-gray-200 transition-all duration-300 hover:text-primary-600 hover:scale-125 hover:-translate-y-1 hover:drop-shadow-[0_0_20px_var(--primary-hex)]"
               >
                 {item.icon}
               </a>
@@ -98,14 +98,14 @@ const HeroSection = () => {
               href="/Hamid-Ali-CV.pdf"
               target="_blank"
               rel="noreferrer"
-              className="w-full sm:w-auto text-center px-6 py-3 bg-pink-600 text-white text-[16px] rounded-md shadow-md hover:bg-pink-700 transition-all"
+              className="w-full sm:w-auto text-center px-6 py-3 bg-primary-600 text-white text-[16px] rounded-md shadow-md hover:bg-primary-700 transition-all"
             >
               Download CV
             </a>
 
             <a
               href="#contact"
-              className="w-full sm:w-auto text-center px-6 py-3 border border-pink-600 text-pink-600 text-[16px] rounded-md hover:bg-pink-600 hover:text-white transition-all"
+              className="w-full sm:w-auto text-center px-6 py-3 border border-primary-600 text-primary-600 text-[16px] rounded-md hover:bg-primary-600 hover:text-white transition-all"
             >
               Hire Me
             </a>
@@ -121,14 +121,14 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
           className="relative w-full lg:w-[35%] flex justify-center items-center mt-8 sm:mt-12 lg:mt-0"
         >
-          <div 
+          <div
             className="relative w-[220px] sm:w-[260px] md:w-[300px] lg:w-[380px] h-[320px] flex justify-center items-center"
             style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
           >
-            
+
             {/* ⚡ 3D Electric Rings */}
-            <div 
-              className="absolute w-[120%] h-[120%] top-[-10%] left-[-10%] pointer-events-none" 
+            <div
+              className="absolute w-[120%] h-[120%] top-[-10%] left-[-10%] pointer-events-none"
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="electric-ring ring-1"></div>
@@ -156,9 +156,9 @@ const HeroSection = () => {
                   position: "absolute",
                   width: "8px",
                   height: "8px",
-                  background: "#db2777",
+                  background: "var(--primary-hex)",
                   borderRadius: "50%",
-                  boxShadow: "0 0 15px #db2777",
+                  boxShadow: "0 0 15px var(--primary-hex)",
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
                   zIndex: 15,
@@ -169,8 +169,8 @@ const HeroSection = () => {
             <img
               src={heroImg}
               alt="Hamid Ali"
-              className="relative w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain drop-shadow-[0_0_25px_#db2777] sm:pt-4 md:pt-10 lg:pt-20"
-              style={{ objectPosition: objPos, transform: "translateZ(1px)" }}
+              className="relative w-[85%] sm:w-[80%] md:w-[78%] lg:w-[90%] object-contain sm:pt-4 md:pt-10 lg:pt-20"
+              style={{ objectPosition: objPos, transform: "translateZ(1px)", filter: "drop-shadow(0 0 25px var(--primary-hex))" }}
             />
           </div>
         </motion.div>
@@ -184,21 +184,21 @@ const HeroSection = () => {
           height: 100%;
           border-radius: 50%;
           border: 4px solid transparent;
-          filter: drop-shadow(0 0 12px #db2777) drop-shadow(0 0 4px #db2777);
+          filter: drop-shadow(0 0 12px var(--primary-hex)) drop-shadow(0 0 4px var(--primary-hex));
         }
         .ring-1 {
-          border-top: 4px solid #db2777;
-          border-right: 4px solid #db2777;
+          border-top: 4px solid var(--primary-hex);
+          border-right: 4px solid var(--primary-hex);
           animation: orbit1 3s linear infinite;
         }
         .ring-2 {
-          border-bottom: 4px solid #db2777;
-          border-left: 4px solid #db2777;
+          border-bottom: 4px solid var(--primary-hex);
+          border-left: 4px solid var(--primary-hex);
           animation: orbit2 4s linear infinite;
         }
         .ring-3 {
-          border-top: 4px solid #db2777;
-          border-left: 4px solid #db2777;
+          border-top: 4px solid var(--primary-hex);
+          border-left: 4px solid var(--primary-hex);
           animation: orbit3 5s linear infinite;
         }
 

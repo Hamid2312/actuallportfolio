@@ -41,11 +41,11 @@ const Skills = () => {
   };
 
   return (
-    <section className="relative py-16 px-4 sm:px-6 lg:px-12 bg-pink-50 dark:bg-[#120312] overflow-visible">
+    <section className="relative py-16 px-4 sm:px-6 lg:px-12 bg-primary-50 dark:bg-[#120312] overflow-visible">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-8">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            My Skills <span className="text-pink-600 dark:text-pink-400">/</span>{" "}
+            My Skills <span className="text-primary-600 dark:text-primary-400">/</span>{" "}
             <span className="text-gray-500 dark:text-gray-300 text-lg ml-2 font-medium">Responsive & interactive</span>
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-300/80">
@@ -71,10 +71,10 @@ const Skills = () => {
                   custom={idx}
                   whileHover="hover"
                   className={`relative rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer shadow-md transition-colors duration-300 w-full ${
-                    hoveredIndex === idx ? "bg-pink-600" : "bg-white dark:bg-gray-900"
+                    hoveredIndex === idx ? "bg-primary-600" : "bg-white dark:bg-gray-900"
                   }`}
                 >
-                  <motion.div className={`text-4xl sm:text-5xl ${hoveredIndex === idx ? "text-white" : "text-pink-600 dark:text-pink-400"}`}>
+                  <motion.div className={`text-4xl sm:text-5xl ${hoveredIndex === idx ? "text-white" : "text-primary-600 dark:text-primary-400"}`}>
                     <Icon />
                   </motion.div>
                   <div className="mt-3 text-center">
@@ -94,9 +94,9 @@ const Skills = () => {
                       transition={{ duration: 0.2 }}
                       className="absolute bottom-full mb-2 w-56 sm:w-64 z-50"
                     >
-                      <div className="bg-white dark:bg-gray-800 rounded-xl px-3 py-2 shadow-lg border border-pink-100/30 text-xs sm:text-sm">
+                      <div className="bg-white dark:bg-gray-800 rounded-xl px-3 py-2 shadow-lg border border-primary-100/30 text-xs sm:text-sm">
                         <div className="flex items-center gap-2">
-                          <Icon className="w-5 h-5 text-pink-600" />
+                          <Icon className="w-5 h-5 text-primary-600" />
                           <div>
                             <div className="font-semibold text-gray-900 dark:text-white">{s.name}</div>
                             <div className="text-gray-500 dark:text-gray-300">{s.short}</div>

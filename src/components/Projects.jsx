@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Tilt from "react-parallax-tilt";
 
 import Famefing from "../assets/famefing.png";
 import pia from "../assets/mypia.png";
 import personalGrowthImage from "../assets/Personal_Growth.png";
 import aestheticCalculator from "../assets/noor-e-nisa.png";
+import Tilt from "react-parallax-tilt";
 
 const projectsData = [
   {
     title: "Famefing.com",
     description:
-      "I created the company's website Famefing.com during my 3-month internship. Built with React.js, it’s a single-page, fully responsive website.",
+      "I created the company's website Famefing.com during my 3-month internship. Built with React.js, it's a single-page, fully responsive website.",
     link: "https://Hamid2312.github.io/myfamefing/",
     image: Famefing,
   },
@@ -42,7 +42,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const checkScreenSize = () => {
       setIsLargeScreen(window.innerWidth >= 640);
     };
@@ -54,7 +54,7 @@ const Projects = () => {
   const highlightTechnologies = (text) => {
     return text.replace(
       /\b(React\.js|React|Tailwind CSS)\b/g,
-      '<span class="font-bold text-pink-600 dark:text-pink-400">$1</span>'
+      '<span class="font-bold text-primary-600 dark:text-primary-400">$1</span>'
     );
   };
 
@@ -70,7 +70,7 @@ const Projects = () => {
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.95 },
     show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
-    hover: { scale: 1.02, y: -2, boxShadow: "0 25px 50px -12px rgba(236, 72, 153, 0.25)", transition: { duration: 0.3, ease: "easeOut" } },
+    hover: { scale: 1.02, y: -2, boxShadow: "0 25px 50px -12px rgba(8, 145, 178, 0.25)", transition: { duration: 0.3, ease: "easeOut" } },
   };
 
   const CardWrapper = ({ children, isLargeScreen }) => {
@@ -85,7 +85,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="relative bg-pink-50 dark:bg-[#120312] py-16 px-4 sm:px-6 lg:px-12 overflow-hidden">
+    <section className="relative bg-primary-50 dark:bg-[#120312] py-16 px-4 sm:px-6 lg:px-12 overflow-hidden">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <motion.h2
           className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-3 tracking-tight"
@@ -94,7 +94,7 @@ const Projects = () => {
           transition={{ duration: 1 }}
         >
           My Projects
-          <span className="ml-2 text-pink-600 dark:text-pink-400">/</span>
+          <span className="ml-2 text-primary-600 dark:text-primary-400">/</span>
         </motion.h2>
         <motion.p
           className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto"
@@ -117,20 +117,15 @@ const Projects = () => {
             <motion.div
               variants={cardVariants}
               whileHover="hover"
-              className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-pink-300/40 dark:hover:shadow-pink-900/40 border border-pink-100/30 hover:border-pink-300 dark:hover:border-pink-600 transition-all duration-300 flex flex-col"
+              className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-primary-300/40 dark:hover:shadow-primary-900/40 border border-primary-100/30 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 flex flex-col"
             >
-              {/* Image Container: Ensure aspect ratio for consistent height and use object-cover */}
               <div
                 onClick={() => setSelectedProject(project)}
-                // Adjusted aspect ratio to be more rectangular (16:9) to better fit common screen sizes
-                // Removed bg-gray-100 as object-cover will fill it
                 className="overflow-hidden rounded-t-2xl aspect-video flex items-center justify-center cursor-pointer"
               >
                 <img
                   src={project.image}
                   alt={project.title}
-                  // FIX: Use object-cover to make the image fill the container completely
-                  // and remove padding as it's not needed with object-cover
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -145,7 +140,7 @@ const Projects = () => {
                 <div className="mt-auto flex justify-between gap-2">
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="flex-1 px-3 py-1.5 text-xs bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-200 rounded-full hover:bg-pink-200 dark:hover:bg-pink-800 transition-colors duration-200"
+                    className="flex-1 px-3 py-1.5 text-xs bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-200 rounded-full hover:bg-primary-200 dark:hover:bg-primary-800 transition-colors duration-200"
                   >
                     View Details
                   </button>
@@ -153,7 +148,7 @@ const Projects = () => {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center px-3 py-1.5 text-xs bg-pink-600 text-white rounded-full hover:bg-pink-700 transition-colors duration-200"
+                    className="flex-1 text-center px-3 py-1.5 text-xs bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-colors duration-200"
                   >
                     Visit Live
                   </a>
@@ -164,7 +159,7 @@ const Projects = () => {
         ))}
       </motion.div>
 
-      {/* Modal component remains fully responsive */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -182,7 +177,7 @@ const Projects = () => {
             >
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-pink-500 text-2xl sm:text-3xl z-10"
+                className="absolute top-3 right-3 text-gray-700 dark:text-gray-300 hover:text-primary-500 text-2xl sm:text-3xl z-10"
               >
                 &times;
               </button>
@@ -190,8 +185,7 @@ const Projects = () => {
               <img
                 src={selectedProject.image}
                 alt={selectedProject.title}
-                // FIX: Use object-cover for modal image as well
-                className="w-full h-auto rounded-lg mb-4 border border-pink-200 dark:border-pink-600 object-cover bg-gray-100 dark:bg-gray-800 p-0" // Removed p-2
+                className="w-full h-auto rounded-lg mb-4 border border-primary-200 dark:border-primary-600 object-cover bg-gray-100 dark:bg-gray-800 p-0"
               />
               <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{selectedProject.title}</h2>
               <p
@@ -203,7 +197,7 @@ const Projects = () => {
                   href={selectedProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-6 py-2 bg-pink-600 dark:bg-pink-400 text-white dark:text-gray-900 rounded-full hover:bg-pink-700 dark:hover:bg-pink-300 transition-all duration-300 font-semibold"
+                  className="inline-block px-6 py-2 bg-primary-600 dark:bg-primary-400 text-white dark:text-gray-900 rounded-full hover:bg-primary-700 dark:hover:bg-primary-300 transition-all duration-300 font-semibold"
                 >
                   Visit Project
                 </a>

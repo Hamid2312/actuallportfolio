@@ -43,20 +43,20 @@ const Certifications = () => {
   const highlightTechnologies = (text) =>
     text.replace(
       /\b(React|React\.js|Tailwind CSS|JavaScript|HTML|CSS|C\+\+)\b/g,
-      '<span class="font-bold text-pink-600 dark:text-pink-400">$1</span>'
+      '<span class="font-bold text-primary-600 dark:text-primary-400">$1</span>'
     );
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-white to-pink-50 dark:from-black dark:to-[#120312] overflow-hidden">
+    <section className="relative py-20 bg-gradient-to-br from-white to-primary-50 dark:from-black dark:to-[#120312] overflow-hidden">
       {/* Animated Background Spheres */}
       <div className="absolute inset-0 -z-10">
         <motion.div
-          className="absolute w-60 h-60 rounded-full bg-pink-300/40 dark:bg-pink-600/30 top-[-10%] left-[-10%]"
+          className="absolute w-60 h-60 rounded-full bg-primary-300/40 dark:bg-primary-600/30 top-[-10%] left-[-10%]"
           animate={{ y: [0, 20, 0], x: [0, 20, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute w-72 h-72 rounded-full bg-pink-400/30 dark:bg-pink-500/30 bottom-[-15%] right-[-10%]"
+          className="absolute w-72 h-72 rounded-full bg-primary-400/30 dark:bg-primary-500/30 bottom-[-15%] right-[-10%]"
           animate={{ y: [0, -25, 0], x: [0, -25, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -66,7 +66,7 @@ const Certifications = () => {
       {!showCerts && (
         <div className="text-center max-w-2xl mx-auto px-4">
           <motion.h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-pink-400 mb-8"
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400 mb-8"
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -82,7 +82,7 @@ const Certifications = () => {
             I have earned certifications in web development, internships, and programming courses. Click below to explore them.
           </motion.p>
           <motion.button
-            className="px-8 py-4 bg-pink-600 dark:bg-pink-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
+            className="px-8 py-4 bg-primary-600 dark:bg-primary-500 text-white font-semibold rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300"
             onClick={() => setShowCerts(true)}
             whileHover={{ scale: 1.08, boxShadow: "0 15px 30px rgba(236,72,153,0.5)" }}
             whileTap={{ scale: 0.95 }}
@@ -104,7 +104,7 @@ const Certifications = () => {
             {certificates.map((cert) => (
               <motion.div
                 key={cert.id}
-                className="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-pink-400/20 cursor-pointer overflow-hidden group"
+                className="relative bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-primary-400/20 cursor-pointer overflow-hidden group"
                 whileHover={{ scale: 1.05 }}
                 onClick={() => setSelectedCert(cert)}
                 initial={{ opacity: 0, y: 50 }}
@@ -115,11 +115,11 @@ const Certifications = () => {
                   <img
                     src={cert.image}
                     alt={cert.title}
-                    className="w-full h-64 object-contain border-b border-pink-300 dark:border-pink-400 p-2"
+                    className="w-full h-64 object-contain border-b border-primary-300 dark:border-primary-400 p-2"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
                     {cert.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 text-sm">{cert.issuer}</p>
@@ -135,7 +135,7 @@ const Certifications = () => {
       {selectedCert && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
           <motion.div
-            className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-pink-300 dark:border-pink-400/40"
+            className="bg-white dark:bg-gray-800 rounded-xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-primary-300 dark:border-primary-400/40"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
@@ -157,9 +157,9 @@ const Certifications = () => {
             <img
               src={selectedCert.image}
               alt={selectedCert.title}
-              className="w-full h-64 object-contain rounded-lg mb-6 border-2 border-pink-300 dark:border-pink-400 p-2"
+              className="w-full h-64 object-contain rounded-lg mb-6 border-2 border-primary-300 dark:border-primary-400 p-2"
             />
-            <h3 className="text-2xl font-bold mb-4 text-pink-600 dark:text-pink-400">
+            <h3 className="text-2xl font-bold mb-4 text-primary-600 dark:text-primary-400">
               {selectedCert.title}
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-2">

@@ -62,13 +62,13 @@ const ExperienceSection = () => {
     <section className="py-20 bg-white dark:bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-96 h-96 bg-cyan-400/10 blur-[120px] rounded-full top-10 left-10 animate-pulse" />
-        <div className="absolute w-72 h-72 bg-pink-500/10 blur-[150px] rounded-full bottom-10 right-10 animate-pulse" />
+        <div className="absolute w-72 h-72 bg-primary-500/10 blur-[150px] rounded-full bottom-10 right-10 animate-pulse" />
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 px-4">
         <h2 className="text-4xl font-extrabold text-black dark:text-white tracking-tight mb-12">
           My Experience
-          <span className="text-pink-600 dark:text-pink-400"> / </span>
+          <span className="text-primary-600 dark:text-primary-400"> / </span>
           <span className="text-gray-500 dark:text-gray-300 text-xl ml-2">
             Journey of Growth
           </span>
@@ -94,9 +94,9 @@ const ExperienceSection = () => {
                       onMouseEnter={() => window.innerWidth >= 768 && setOpenIndex(actualIndex)}
                       onMouseLeave={() => window.innerWidth >= 768 && setOpenIndex(null)}
                     >
-                      <div className="absolute -left-[14.5px] top-1.5 w-4 h-4 rounded-full bg-pink-500 dark:bg-pink-400 border-4 border-white dark:border-black shadow" />
+                      <div className="absolute -left-[14.5px] top-1.5 w-4 h-4 rounded-full bg-primary-500 dark:bg-primary-400 border-4 border-white dark:border-black shadow" />
 
-                      <div className="group bg-gradient-to-br from-white/70 via-pink-50 to-cyan-50 dark:from-[#071024]/60 dark:via-neutral-900/40 dark:to-[#021025]/20 shadow-2xl hover:shadow-[0_35px_60px_rgba(0,0,0,0.22)] transform-gpu hover:-translate-y-3 hover:scale-[1.02] transition-all duration-300 border-l-4 border-pink-600 dark:border-pink-400 rounded-2xl p-6 backdrop-blur-sm overflow-hidden">
+                      <div className="group bg-gradient-to-br from-white/70 via-primary-50 to-cyan-50 dark:from-[#071024]/60 dark:via-neutral-900/40 dark:to-[#021025]/20 shadow-2xl hover:shadow-[0_35px_60px_rgba(0,0,0,0.22)] transform-gpu hover:-translate-y-3 hover:scale-[1.02] transition-all duration-300 border-l-4 border-primary-600 dark:border-primary-400 rounded-2xl p-6 backdrop-blur-sm overflow-hidden">
                         <p className="text-sm text-gray-500 dark:text-gray-300 font-semibold mb-2">
                           {exp.year}
                         </p>
@@ -119,14 +119,14 @@ const ExperienceSection = () => {
                           </div>
                         </div>
 
-                        <p className="text-pink-600 dark:text-pink-400 font-medium mb-3">
+                        <p className="text-primary-600 dark:text-primary-400 font-medium mb-3">
                           {exp.company}
                         </p>
 
                         {/* Mobile: keep toggle button. Desktop: hide button (md:hidden). */}
                         <button
                           onClick={() => toggle(actualIndex)}
-                          className="mt-2 flex items-center space-x-2 text-pink-600 dark:text-pink-400 hover:underline md:hidden"
+                          className="mt-2 flex items-center space-x-2 text-primary-600 dark:text-primary-400 hover:underline md:hidden"
                           aria-expanded={openIndex === actualIndex}
                         >
                           {openIndex === actualIndex ? (
@@ -152,7 +152,7 @@ const ExperienceSection = () => {
                             >
                               {/* added subtle icon/ accent + prettier spacing */}
                               <div className="flex items-start space-x-3">
-                                <div className="flex-none w-2 h-10 rounded-full bg-pink-500/60 dark:bg-pink-400/60 mt-1" />
+                                <div className="flex-none w-2 h-10 rounded-full bg-primary-500/60 dark:bg-primary-400/60 mt-1" />
                                 <div className="text-sm">
                                   {exp.description}
                                   <div className="mt-3 text-xs text-gray-400 dark:text-gray-500">

@@ -7,8 +7,8 @@ const Contact = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const PRIMARY_COLOR_CLASS = "text-pink-600 dark:text-pink-400";
-  const HOVER_COLOR_CLASS = "bg-pink-600 hover:bg-pink-700 dark:bg-pink-500 dark:hover:bg-pink-400";
+  const PRIMARY_COLOR_CLASS = "text-primary-600 dark:text-primary-400";
+  const HOVER_COLOR_CLASS = "bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-400";
 
   const contactInfo = [
     {
@@ -79,7 +79,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-pink-50 dark:bg-[#120312] py-16 sm:py-20 relative overflow-hidden">
+    <div className="bg-primary-50 dark:bg-[#120312] py-16 sm:py-20 relative overflow-hidden">
       <Toaster position="top-right" />
       <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
@@ -91,12 +91,12 @@ const Contact = () => {
             </p>
             {contactInfo.map((item, idx) => (
               <div key={idx} className="flex items-start mb-8 gap-4">
-                <div className={`p-3 rounded-full ${PRIMARY_COLOR_CLASS} border border-pink-200 dark:border-pink-800 flex-shrink-0`}>
+                <div className={`p-3 rounded-full ${PRIMARY_COLOR_CLASS} border border-primary-200 dark:border-primary-800 flex-shrink-0`}>
                   {item.icon}
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{item.type}</h3>
-                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-200">
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                     {item.value}
                   </a>
                 </div>
@@ -107,15 +107,15 @@ const Contact = () => {
           {/* RIGHT COLUMN */}
           <motion.form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500"/>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500"/>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Phone" className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500"/>
-              <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500"/>
+              <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="Your Phone" className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
+              <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="Subject" className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
             </div>
-            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Message..." rows="6" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500 mb-6"/>
-            <button type="submit" disabled={isSubmitting} className={`flex items-center justify-center gap-2 px-8 py-3 rounded-full text-white font-semibold transition-all duration-300 shadow-md ${isSubmitting ? 'opacity-50 cursor-not-allowed bg-pink-500' : HOVER_COLOR_CLASS}`}>
+            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Message..." rows="6" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500 mb-6"/>
+            <button type="submit" disabled={isSubmitting} className={`flex items-center justify-center gap-2 px-8 py-3 rounded-full text-white font-semibold transition-all duration-300 shadow-md ${isSubmitting ? 'opacity-50 cursor-not-allowed bg-primary-500' : HOVER_COLOR_CLASS}`}>
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </motion.form>

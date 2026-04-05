@@ -20,14 +20,14 @@ const SidebarNavbar = () => {
             backdrop-blur-xl
             bg-white/40 dark:bg-gray-900/50
             border border-white/50 dark:border-gray-700/50
-            shadow-[0_8px_32px_rgba(219,39,119,0.2)] dark:shadow-[0_8px_32px_rgba(219,39,119,0.15)]
+            shadow-[0_8px_32px_rgba(8,145,178,0.2)] dark:shadow-[0_8px_32px_rgba(8,145,178,0.15)]
             floating-nav
           "
         >
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-1 text-pink-600 font-extrabold text-xl lg:text-2xl tracking-tighter select-none mr-2 md:mr-4 drop-shadow-md transition-transform hover:scale-105"
+            className="flex items-center gap-1 text-primary-600 font-extrabold text-xl lg:text-2xl tracking-tighter select-none mr-2 md:mr-4 drop-shadow-md transition-transform hover:scale-105"
           >
             H.A<span className="text-gray-800 dark:text-gray-200"></span>
           </Link>
@@ -44,7 +44,7 @@ const SidebarNavbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className="nav-link relative px-4 py-1.5 text-sm font-semibold text-gray-800 dark:text-gray-200 rounded-full transition-colors duration-300 hover:text-pink-600"
+                className="nav-link relative px-4 py-1.5 text-sm font-semibold text-gray-800 dark:text-gray-200 rounded-full transition-colors duration-300 hover:text-primary-600"
               >
                 {link.name}
               </Link>
@@ -63,9 +63,9 @@ const SidebarNavbar = () => {
                 p-2 rounded-full 
                 bg-white/60 dark:bg-black/60
                 text-gray-700 dark:text-gray-200
-                hover:text-pink-600 dark:hover:text-pink-400
+                hover:text-primary-600 dark:hover:text-primary-400
                 shadow-sm border border-white/40 dark:border-gray-700/50
-                transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(219,39,119,0.2)]
+                transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_rgba(8,145,178,0.2)]
               "
               aria-label="Toggle Theme"
             >
@@ -83,7 +83,7 @@ const SidebarNavbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="md:hidden p-2 rounded-full bg-white/60 dark:bg-black/60 text-gray-700 dark:text-gray-200 hover:text-pink-600 transition-all duration-300 border border-white/40 dark:border-gray-700/50 shadow-sm"
+              className="md:hidden p-2 rounded-full bg-white/60 dark:bg-black/60 text-gray-700 dark:text-gray-200 hover:text-primary-600 transition-all duration-300 border border-white/40 dark:border-gray-700/50 shadow-sm"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -156,7 +156,7 @@ const SidebarNavbar = () => {
           position: absolute;
           inset: 0;
           border-radius: 9999px;
-          background: linear-gradient(135deg, rgba(219, 39, 119, 0.15), rgba(219, 39, 119, 0.05));
+          background: linear-gradient(135deg, rgba(8, 145, 178, 0.15), rgba(8, 145, 178, 0.05));
           opacity: 0;
           transform: scale(0.6);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -169,7 +169,7 @@ const SidebarNavbar = () => {
         }
 
         .nav-link:hover {
-          text-shadow: 0 0 10px rgba(219, 39, 119, 0.5);
+          text-shadow: 0 0 10px rgba(8, 145, 178, 0.5);
         }
       `}</style>
     </div>
