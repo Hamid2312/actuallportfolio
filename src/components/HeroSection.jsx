@@ -4,6 +4,7 @@ import { Typewriter } from "react-simple-typewriter";
 import { FaGithub, FaLinkedin, FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import heroImg from "../assets/HamidImage2.png";
+import resumePdf from "../assets/Hamid_Resume.pdf";
 
 const HeroSection = () => {
   const [objPos, setObjPos] = useState("50% 20%");
@@ -95,7 +96,8 @@ const HeroSection = () => {
           {/* BUTTONS */}
           <div className="w-full flex flex-col sm:flex-row items-center gap-4 mt-3 max-w-sm md:max-w-none">
             <a
-              href="/Hamid-Ali-CV.pdf"
+              href={resumePdf}
+              download="Hamid_Resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="w-full sm:w-auto text-center px-6 py-3 bg-primary-600 text-white text-[16px] rounded-md shadow-md hover:bg-primary-700 transition-all"
