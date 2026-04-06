@@ -6,17 +6,10 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import zaffLogo from "../assets/ZaffLogo.png";
 import freelancerLogo from "../assets/FiverrLogo.png";
 import famefingLogo from "../assets/FamefingLogo.png";
+import sevenKingsLogo from "../assets/7_Kings_logo.jfif";
 
 const ExperienceSection = () => {
   const experiences = [
-    {
-      year: "Dec 2023 - Feb 2024",
-      title: "Learning",
-      company: "Zaff Institute",
-      logo: zaffLogo,
-      description:
-        "I learned web development and explored frontend technologies including HTML, CSS, JavaScript, and began my internship there.",
-    },
     {
       year: "Feb 2024 - Sep 2024",
       title: "Frontend Developer",
@@ -26,7 +19,15 @@ const ExperienceSection = () => {
         "Created responsive, modern websites using React, HTML, CSS, JavaScript, and Tailwind CSS with pixel-perfect UI and cross-browser compatibility.",
     },
     {
-      year: "Jul 2024 - Sep 2024",
+      year: "Oct 2024 - Feb 2025",
+      title: "Frontend Developer",
+      company: "Famefing Technologies",
+      logo: famefingLogo,
+      description:
+        "Leading React-based SPA development using TypeScript and advanced UI patterns, building fast and maintainable applications.",
+    },
+    {
+      year: "Jul 2024 - Sep 2025",
       title: "Freelancer - Frontend Developer",
       company: "Self-employed",
       logo: freelancerLogo,
@@ -34,12 +35,12 @@ const ExperienceSection = () => {
         "Worked with global clients building custom web solutions using React and Tailwind CSS focusing on elegant UI and scalability.",
     },
     {
-      year: "Oct 2024 - Present",
+      year: "Dec 2025 - Present",
       title: "Frontend Developer",
-      company: "Famefing Technologies",
-      logo: famefingLogo,
+      company: "7 Kings Code",
+      logo: sevenKingsLogo,
       description:
-        "Leading React-based SPA development using TypeScript and advanced UI patterns, building fast and maintainable applications.",
+        "Developing dynamic and responsive web applications ensuring high performance, scalability, and an excellent user interface.",
     },
   ];
 

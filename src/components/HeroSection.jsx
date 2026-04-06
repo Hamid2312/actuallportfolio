@@ -106,7 +106,7 @@ const HeroSection = () => {
             </a>
 
             <a
-              href="#contact"
+              href="contact"
               className="w-full sm:w-auto text-center px-6 py-3 border border-primary-600 text-primary-600 text-[16px] rounded-md hover:bg-primary-600 hover:text-white transition-all"
             >
               Hire Me
