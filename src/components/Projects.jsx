@@ -3,17 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Famefing from "../assets/famefing.png";
 import pia from "../assets/mypia.png";
-import personalGrowthImage from "../assets/Personal_Growth.png";
+import workwearImage from "../assets/workwear.png";
 import aestheticCalculator from "../assets/noor-e-nisa.png";
 import Tilt from "react-parallax-tilt";
 
 const projectsData = [
   {
-    title: "Famefing.com",
+    title: "CWS Workwear",
     description:
-      "I created the company's website Famefing.com during my 3-month internship. Built with React.js, it's a single-page, fully responsive website.",
-    link: "https://Hamid2312.github.io/myfamefing/",
-    image: Famefing,
+      "I developed the UI and integrated Sitecore XM Cloud for the CWS Workwear website. CWS is an approximately 150-year-old company, and their extensive platform consists of over 2000+ pages. Built using modern web technologies and React.js.",
+    link: "https://cws.com/en/workwear",
+    image: workwearImage,
   },
   {
     title: "Piac.com.pk",
@@ -23,11 +23,11 @@ const projectsData = [
     image: pia,
   },
   {
-    title: "Personal Growth OS",
+    title: "Famefing.com",
     description:
-      "A comprehensive SaaS lifestyle and productivity platform. Features a unified dashboard, habit tracking, and custom analytics. Built with React.js, Tailwind CSS, Supabase, and Recharts.",
-    link: "https://day-stack-nine.vercel.app/",
-    image: personalGrowthImage,
+      "I created the company's website Famefing.com during my 3-month internship. Built with React.js, it's a single-page, fully responsive website.",
+    link: "https://Hamid2312.github.io/myfamefing/",
+    image: Famefing,
   },
   {
     title: "Noor e Nisa",
@@ -53,7 +53,7 @@ const Projects = () => {
 
   const highlightTechnologies = (text) => {
     return text.replace(
-      /\b(React\.js|React|Tailwind CSS)\b/g,
+      /\b(React\.js|React|Tailwind CSS|Sitecore XM Cloud)\b/g,
       '<span class="font-bold text-primary-600 dark:text-primary-400">$1</span>'
     );
   };
