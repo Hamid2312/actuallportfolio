@@ -20,8 +20,8 @@ const SidebarNavbar = () => {
             backdrop-blur-xl
             bg-white/40 dark:bg-gray-900/50
             border border-white/50 dark:border-gray-700/50
-            shadow-[0_8px_32px_rgba(8,145,178,0.2)] dark:shadow-[0_8px_32px_rgba(8,145,178,0.15)]
-            floating-nav
+            shadow-[0_8px_32px_rgba(var(--primary-rgb),0.2)] dark:shadow-[0_8px_32px_rgba(var(--primary-rgb),0.15)]
+            nav-shimmer
           "
         >
           {/* Logo */}
@@ -142,21 +142,45 @@ const SidebarNavbar = () => {
 
       {/* Local styles for floating and shade animation */}
       <style>{`
-        @keyframes gentleFloat {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-8px); }
+        /* ── Navbar shimmer sweep (left → right) ── */
+        .nav-shimmer {
+          position: relative;
+          overflow: hidden;
         }
 
-        .floating-nav {
-          animation: gentleFloat 5s ease-in-out infinite;
+        .nav-shimmer::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 60%;
+          height: 100%;
+          border-radius: 9999px;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(var(--primary-rgb), 0.18) 40%,
+            rgba(var(--primary-rgb), 0.30) 50%,
+            rgba(var(--primary-rgb), 0.18) 60%,
+            transparent 100%
+          );
+          animation: navShimmer 3.5s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 0;
         }
 
+        @keyframes navShimmer {
+          0%   { left: -60%; }
+          100% { left: 120%; }
+        }
+
+        /* ── Nav link hover effects ── */
         .nav-link::before {
           content: "";
           position: absolute;
           inset: 0;
           border-radius: 9999px;
-          background: linear-gradient(135deg, rgba(8, 145, 178, 0.15), rgba(8, 145, 178, 0.05));
+          background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.15), rgba(var(--primary-rgb), 0.05));
           opacity: 0;
           transform: scale(0.6);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -169,7 +193,7 @@ const SidebarNavbar = () => {
         }
 
         .nav-link:hover {
-          text-shadow: 0 0 10px rgba(8, 145, 178, 0.5);
+          text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
         }
       `}</style>
     </div>

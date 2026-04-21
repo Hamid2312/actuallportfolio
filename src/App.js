@@ -11,14 +11,16 @@ import Certifications from "./components/Certifications";
 import Footer from "./components/Footer";
 import CursorBubbling from "./components/CursorBubbling";
 import ScrollToTop from "./components/ScrollToTop";
-import AnimatedSection from "./components/AnimatedSection"; // Wrapper for animations
+import AnimatedSection from "./components/AnimatedSection";
 import "aos/dist/aos.css";
 import AOS from "aos";
 
 // Layout component wraps common elements
 const Layout = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen relative">
+    // bg-white dark:bg-black on the root ensures no white flash in dark mode
+    // when sections are at opacity:0 during animation
+    <div className="flex flex-col min-h-screen relative bg-[#F7F7F7] dark:bg-[#000]">
       <CursorBubbling />
       <Navbar />
       <main className="flex-1">{children}</main>
@@ -29,7 +31,12 @@ const Layout = ({ children }) => {
 
 function App() {
   useEffect(() => {
-    AOS.init({ once: true, duration: 1000, easing: "ease-out" });
+    AOS.init({
+      once: true,
+      duration: 450,   // was 1000ms — halved to match framer motion speed
+      easing: "ease-out",
+      offset: 40,      // trigger 40px before element enters viewport
+    });
   }, []);
 
   return (
@@ -41,28 +48,28 @@ function App() {
             path="/"
             element={
               <Layout>
-                {/* Animate each section with a slight stagger */}
+                {/* All sections use delay=0 — no stagger, no white-flash waiting */}
                 <AnimatedSection delay={0}>
                   <HeroSection />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0.2}>
+                <AnimatedSection delay={0}>
                   <MyExperience />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0.4}>
+                <AnimatedSection delay={0}>
                   <Skills />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0.6}>
+                <AnimatedSection delay={0}>
                   <Projects />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0.8}>
+                <AnimatedSection delay={0}>
                   <Certifications />
                 </AnimatedSection>
 
-                <AnimatedSection delay={1}>
+                <AnimatedSection delay={0}>
                   <Contact />
                 </AnimatedSection>
               </Layout>
