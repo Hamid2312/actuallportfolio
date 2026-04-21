@@ -102,7 +102,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative w-full lg:w-[50%] flex justify-center items-center mt-2 sm:mt-4 lg:mt-0"
+          className="relative w-full lg:w-[50%] flex justify-center items-center mt-8 sm:mt-10 lg:mt-0"
         >
           {/* Ambient radial glow – scales with the container */}
           <div
@@ -118,10 +118,10 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Fluid animation wrapper — uses % so it's never too big on small screens */}
+          {/* Fluid animation wrapper — improved size for mobile screens */}
           <div
             style={{ zIndex: 1, position: 'relative' }}
-            className="w-[72vw] max-w-[280px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[540px] xl:max-w-[580px]"
+            className="w-[90vw] max-w-[340px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[540px] xl:max-w-[580px]"
           >
             <DeveloperAnimation />
           </div>

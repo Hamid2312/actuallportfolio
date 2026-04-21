@@ -10,16 +10,15 @@ const CursorBubbling = () => {
       bubble.classList.add("bubble");
       document.body.appendChild(bubble);
 
-      const size = Math.random() * 20 + 10;
+      const size = Math.random() * 8 + 4; // Much smaller bubbles (4px - 12px)
       bubble.style.width = `${size}px`;
       bubble.style.height = `${size}px`;
       bubble.style.left = `${e.clientX - size / 2}px`;
       bubble.style.top = `${e.clientY - size / 2}px`;
 
-      const r = Math.floor(Math.random() * 255);
-      const g = Math.floor(Math.random() * 255);
-      const b = Math.floor(Math.random() * 255);
-      bubble.style.background = `rgba(${r}, ${g}, ${b}, 0.6)`;
+      // Use the theme's primary color instead of random ugly colors, with a nice glow
+      bubble.style.background = `rgba(var(--primary-rgb), 0.6)`;
+      bubble.style.boxShadow = `0 0 10px rgba(var(--primary-rgb), 0.4)`;
 
       particleCount.current += 1; // Increment count silently
 
@@ -28,7 +27,7 @@ const CursorBubbling = () => {
         bubble.remove();
         particleCount.current -= 1; // Decrement count silently
       };
-      setTimeout(removeBubble, 1000);
+      setTimeout(removeBubble, 1200);
     };
 
     const handleMouseMove = (e) => {
@@ -62,16 +61,17 @@ const CursorBubbling = () => {
             position: fixed;
             border-radius: 50%;
             pointer-events: none;
-            animation: bubbleFade 1s ease-out forwards;
+            animation: bubbleFade 1.2s ease-out forwards;
+            z-index: 9999;
           }
 
           @keyframes bubbleFade {
             0% {
-              transform: scale(0);
-              opacity: 2;
+              transform: scale(0.5) translateY(0);
+              opacity: 1;
             }
             100% {
-              transform: scale(2);
+              transform: scale(1.2) translateY(-25px);
               opacity: 0;
             }
           }
