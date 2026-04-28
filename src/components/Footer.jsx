@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaFacebook, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
+import { Link } from "react-router-dom";
 
 const AdvancedFooter = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -84,14 +86,19 @@ const AdvancedFooter = () => {
             Quick Links
           </h2>
           <ul className="space-y-3">
-            {["Home", "Experience", "Skills", "Contact"].map((link) => (
-              <li key={link}>
-                <a
-                  href={`#${link.toLowerCase()}`}
+            {[
+              { name: "Home", path: "/" },
+              { name: "Experience", path: "/my-experience" },
+              { name: "Skills", path: "/skills" },
+              { name: "Contact", path: "/contact" },
+            ].map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.path}
                   className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300"
                 >
-                  {link}
-                </a>
+                  {link.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -119,10 +126,10 @@ const AdvancedFooter = () => {
           <p className="text-gray-700 dark:text-gray-300 mb-4">
             Phone:{" "}
             <a
-              href="tel:+923249462896"
+              href="tel:+923249891591"
               className="text-primary-600 dark:text-primary-400 hover:underline transition-colors duration-300"
             >
-              +92 3249462896
+              +92 324 989 1591
             </a>
           </p>
 
@@ -145,10 +152,15 @@ const AdvancedFooter = () => {
       {/* Socials + Scroll Top */}
       <div className="relative z-10 mt-16 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex space-x-6 justify-center">
-          {[FaFacebook, FaGithub, FaLinkedin, FaTwitter].map((Icon, idx) => (
+          {[
+            { Icon: FaGithub, href: "https://github.com/Hamid2312/" },
+            { Icon: FaLinkedin, href: "https://www.linkedin.com/in/hamid-ali-b40795336/" },
+            { Icon: SiGmail, href: "mailto:hafizalig312@gmail.com" },
+            { Icon: FaWhatsapp, href: "https://wa.me/923249891591" },
+          ].map(({ Icon, href }, idx) => (
             <motion.a
               key={idx}
-              href="#"
+              href={href}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.3, rotate: 10 }}

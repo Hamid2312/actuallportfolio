@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
-import { FaGithub, FaLinkedin, FaFacebook, FaWhatsapp } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import resumePdf from "../assets/Hamid_Resume.pdf";
 import DeveloperAnimation from "./DeveloperAnimation";
@@ -58,11 +58,10 @@ const HeroSection = () => {
           {/* SOCIAL ICONS */}
           <div className="flex items-center gap-3 sm:gap-4 mb-5">
             {[
-              { icon: <FaGithub />, link: "https://github.com/" },
-              { icon: <FaLinkedin />, link: "https://linkedin.com/" },
-              { icon: <FaFacebook />, link: "https://facebook.com/" },
-              { icon: <SiGmail />, link: "mailto:test@gmail.com" },
-              { icon: <FaWhatsapp />, link: "https://wa.me/0000000000" },
+              { icon: <FaGithub />, link: "https://github.com/Hamid2312/" },
+              { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/hamid-ali-b40795336/" },
+              { icon: <SiGmail />, link: "mailto:hafizalig312@gmail.com" },
+              { icon: <FaWhatsapp />, link: "https://wa.me/923249891591" },
             ].map((item, i) => (
               <a
                 key={i}
