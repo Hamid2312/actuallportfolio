@@ -17,7 +17,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex flex-col items-center md:items-start text-center md:text-left w-full lg:w-1/2"
+          className="flex flex-col items-center md:items-start text-center md:text-left w-full lg:w-[45%]"
         >
           <p className="hidden lg:block text-[13px] tracking-[3px] uppercase text-gray-600 dark:text-gray-300 mb-2">
             Welcome to my world
@@ -102,7 +102,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="relative w-full lg:w-[50%] flex justify-center items-center mt-8 sm:mt-10 lg:mt-0"
+          className="relative w-full lg:w-[55%] flex justify-center items-center mt-8 sm:mt-10 lg:mt-0"
         >
           {/* Ambient radial glow – scales with the container */}
           <div
@@ -118,10 +118,10 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Fluid animation wrapper — improved size for mobile screens */}
+          {/* Fluid animation wrapper — improved size for desktop screens */}
           <div
             style={{ zIndex: 1, position: 'relative' }}
-            className="w-[90vw] max-w-[340px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[540px] xl:max-w-[580px]"
+            className="w-[90vw] max-w-[400px] sm:max-w-[480px] md:max-w-[520px] lg:max-w-[700px] xl:max-w-[760px]"
           >
             <DeveloperAnimation />
           </div>
