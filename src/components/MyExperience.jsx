@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import zaffLogo from "../assets/ZaffLogo.png";
 import freelancerLogo from "../assets/FiverrLogo.png";
@@ -59,6 +60,28 @@ const ExperienceSection = () => {
     exit: { opacity: 0, y: 8, scale: 0.98, transition: { duration: 0.3 } },
   };
 
+  // Scroll-triggered hook for the heading
+  const { ref: headingRef, inView: headingInView } = useInView({ threshold: 0.2, triggerOnce: true });
+
+  // Column animation variants — left col slides from left, right col from right
+  const colVariants = (direction) => ({
+    hidden: { opacity: 0, x: direction === 'left' ? -55 : 55 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  });
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.38, delay: i * 0.07, ease: 'easeOut' },
+    }),
+  };
+
   return (
     <section className="py-20 bg-white dark:bg-black relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -67,19 +90,30 @@ const ExperienceSection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10 px-4">
-        <h2 className="text-4xl font-extrabold text-black dark:text-white tracking-tight mb-12">
+        {/* Heading slides up on scroll */}
+        <motion.h2
+          ref={headingRef}
+          className="text-4xl font-extrabold text-black dark:text-white tracking-tight mb-12"
+          initial={{ opacity: 0, y: -30 }}
+          animate={headingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           My Experience
           <span className="text-primary-600 dark:text-primary-400"> / </span>
           <span className="text-gray-500 dark:text-gray-300 text-xl ml-2">
             Journey of Growth
           </span>
-        </h2>
+        </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-10">
           {[0, 1].map((col) => (
-            <div
+            <motion.div
               key={col}
               className="relative pl-8 border-l-4 border-gray-200 dark:border-gray-700"
+              variants={colVariants(col === 0 ? 'left' : 'right')}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
             >
               {experiences
                 .filter((_, idx) => idx % 2 === col)
@@ -88,9 +122,14 @@ const ExperienceSection = () => {
                   const actualIndex = experiences.indexOf(exp);
 
                   return (
-                    <div
+                    <motion.div
                       key={actualIndex}
                       className="mb-10 relative"
+                      custom={index}
+                      variants={cardVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.15 }}
                       // desktop hover reveal vs mobile click
                       onMouseEnter={() => window.innerWidth >= 768 && setOpenIndex(actualIndex)}
                       onMouseLeave={() => window.innerWidth >= 768 && setOpenIndex(null)}
@@ -165,10 +204,10 @@ const ExperienceSection = () => {
                           )}
                         </AnimatePresence>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

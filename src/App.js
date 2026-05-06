@@ -48,28 +48,33 @@ function App() {
             path="/"
             element={
               <Layout>
-                {/* All sections use delay=0 — no stagger, no white-flash waiting */}
-                <AnimatedSection delay={0}>
+                {/* Hero — no entrance animation, it's the first thing visible */}
+                <AnimatedSection direction="fade" delay={0}>
                   <HeroSection />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0}>
+                {/* Experience — section title + cards animate from left & right inside */}
+                <AnimatedSection direction="up" delay={0}>
                   <MyExperience />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0}>
+                {/* Skills — zoom-in reveal for the grid */}
+                <AnimatedSection direction="zoom" delay={0}>
                   <Skills />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0}>
+                {/* Projects — slides up from below */}
+                <AnimatedSection direction="up" delay={0}>
                   <Projects />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0}>
+                {/* Certifications — fade + scale */}
+                <AnimatedSection direction="zoom" delay={0}>
                   <Certifications />
                 </AnimatedSection>
 
-                <AnimatedSection delay={0}>
+                {/* Contact — left column & right form each animate separately inside */}
+                <AnimatedSection direction="up" delay={0}>
                   <Contact />
                 </AnimatedSection>
               </Layout>

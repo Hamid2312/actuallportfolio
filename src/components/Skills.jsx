@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import {
   SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiReact, SiGit, SiGithub,
   SiVite, SiVercel, SiPostman, SiJest, SiNodedotjs, SiNextdotjs, SiRedux,
-  SiSass, SiFigma
+  SiSass, SiFigma, SiPython, SiFastapi
 } from "react-icons/si";
+import { LayoutTemplate, FileEdit } from "lucide-react";
+
+// Sitecore doesn't have an icon in react-icons, so wrap lucide icons
+const SitecorePageBuilder = (props) => <LayoutTemplate {...props} />;
+const SitecoreContentEditor = (props) => <FileEdit {...props} />;
 
 const Skills = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -27,30 +33,47 @@ const Skills = () => {
     { name: "Redux", Icon: SiRedux, short: "State Mgmt", extra: "Global state, stores, slices" },
     { name: "Sass / SCSS", Icon: SiSass, short: "Preprocessor", extra: "Variables, nesting, mixins" },
     { name: "Figma", Icon: SiFigma, short: "UI/UX Design", extra: "Prototyping, collaboration, assets" },
+    { name: "Python", Icon: SiPython, short: "Language • Scripting", extra: "Automation, data, backend scripting" },
+    { name: "FastAPI", Icon: SiFastapi, short: "Backend • APIs", extra: "Async REST APIs, high performance" },
+    { name: "XM Page Builder", Icon: SitecorePageBuilder, short: "Sitecore • CMS", extra: "Component layout, page design, XM Cloud" },
+    { name: "XM Content Editor", Icon: SitecoreContentEditor, short: "Sitecore • CMS", extra: "Content tree, items, field management" },
   ];
 
   const tileVariants = {
-    hidden: { opacity: 0, y: 10, scale: 0.98 },
+    hidden: { opacity: 0, y: 24, scale: 0.9 },
     visible: i => ({
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { delay: i * 0.03, type: "spring", stiffness: 110, damping: 15 },
+      transition: { delay: i * 0.045, type: "spring", stiffness: 120, damping: 14 },
     }),
-    hover: { scale: 1.05, transition: { duration: 0.2, ease: "easeOut" } },
+    hover: { scale: 1.07, transition: { duration: 0.2, ease: "easeOut" } },
   };
+
+  const { ref: headingRef, inView: headingInView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
     <section className="relative py-16 px-4 sm:px-6 lg:px-12 bg-primary-50 dark:bg-[#120312] overflow-visible">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-8">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <motion.h2
+            ref={headingRef}
+            className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight"
+            initial={{ opacity: 0, y: -28 }}
+            animate={headingInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             My Skills <span className="text-primary-600 dark:text-primary-400">/</span>{" "}
-            <span className="text-gray-500 dark:text-gray-300 text-lg ml-2 font-medium">Responsive & interactive</span>
-          </h2>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300/80">
+            <span className="text-gray-500 dark:text-gray-300 text-lg ml-2 font-medium">Responsive &amp; interactive</span>
+          </motion.h2>
+          <motion.p
+            className="mt-2 text-sm text-gray-600 dark:text-gray-300/80"
+            initial={{ opacity: 0 }}
+            animate={headingInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Hover a skill to see key info. Info box shows just above the tile with small margin.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-6 md:grid-cols-8 gap-4 sm:gap-6 lg:gap-6">
@@ -67,7 +90,8 @@ const Skills = () => {
                 <motion.div
                   variants={tileVariants}
                   initial="hidden"
-                  animate="visible"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
                   custom={idx}
                   whileHover="hover"
                   className={`relative rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer shadow-md transition-colors duration-300 w-full ${

@@ -83,8 +83,13 @@ const Contact = () => {
       <Toaster position="top-right" />
       <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* LEFT COLUMN */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          {/* LEFT COLUMN — slides in from left */}
+          <motion.div
+            initial={{ opacity: 0, x: -70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-gray-900 dark:text-white">Contact Info</h1>
             <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-light mb-12">
               Have any questions or want to collaborate? I'm eager to hear from you.
@@ -104,8 +109,15 @@ const Contact = () => {
             ))}
           </motion.div>
 
-          {/* RIGHT COLUMN */}
-          <motion.form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl">
+          {/* RIGHT COLUMN — slides in from right */}
+          <motion.form
+            onSubmit={handleSubmit}
+            className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl"
+            initial={{ opacity: 0, x: 70 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
               <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Name*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
               <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email*" required className="w-full p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500"/>
